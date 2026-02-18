@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planificador de Comidas</title>
+    <!-- Usamos Tailwind CSS para un diseño rápido y limpio -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 pt-12 max-w-2xl">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            
+            <h1 class="text-3xl font-bold text-center text-blue-600 mb-4">
+                Tu Planificador de Comidas
+            </h1>
+            <p class="text-center text-gray-600 mb-8">
+                Ingresa los ingredientes que tienes en tu cocina, separados por comas, y en inglés.
+            </p>
+            
+            <!-- Formulario que envía los datos a /plan usando el método POST -->
+            <form action="/plan" method="POST">
+                <div class="mb-6">
+                    <label for="ingredients" class="block text-lg font-semibold mb-2 text-gray-700">
+                        Mis Ingredientes:
+                    </label>
+                    <textarea 
+                        id="ingredients-input"
+                        name="ingredients"
+                        rows="6"
+                        class="w-full p-4 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                        placeholder="Ej: Pollo, Arroz, Tomate, Lechuga, Huevo, Cebolla..."
+                    ></textarea>
+                </div>
+                
+                <div class="text-center">
+                    <button 
+                        type="submit"
+                        class="w-full bg-blue-600 text-white text-lg font-bold py-3 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-300 shadow-md hover:shadow-lg"
+                    >
+                        ¡Encontrar Recetas!
+                    </button>
+                    <button 
+                        type="button" 
+                        id="clear-button"
+                        class="w-full sm:w-auto bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors focus:outline-none focus:ring-4 focus:ring-gray-300">
+                        Limpiar Lista
+                    </button>
+                    
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <!-- === Script de LocalStorage === -->
+<script>
+    // El nombre de la "llave" donde guardaremos los datos
+    const STORAGE_KEY = 'userIngredients';
+
+    // Obtenemos los elementos del DOM
+    const ingredientsTextarea = document.getElementById('ingredients-input');
+    const clearButton = document.getElementById('clear-button');
+
+    // --- 1. Cargar los datos al abrir la página ---
+    function loadIngredients() {
+        // Buscamos en localStorage si hay algo guardado
+        const savedIngredients = localStorage.getItem(STORAGE_KEY);
+        if (savedIngredients) {
+            // Si hay, lo ponemos en el textarea
+            ingredientsTextarea.value = savedIngredients;
+        }
+    }
+
+    // --- 2. Guardar los datos al escribir ---
+    function saveIngredients() {
+        // Guardamos el valor actual del textarea en localStorage
+        localStorage.setItem(STORAGE_KEY, ingredientsTextarea.value);
+    }
+
+    // --- 3. Limpiar los datos ---
+    function clearIngredients() {
+        // Borramos el valor del textarea
+        ingredientsTextarea.value = '';
+        // Borramos la llave de localStorage
+        localStorage.removeItem(STORAGE_KEY);
+    }
+
+    // --- Conectamos los eventos ---
+
+    // Al escribir en el textarea (evento 'input'), guardamos
+    ingredientsTextarea.addEventListener('input', saveIngredients);
+
+    // Al hacer clic en el botón de limpiar, limpiamos
+    clearButton.addEventListener('click', clearIngredients);
+    
+    // Al cargar la página (evento 'DOMContentLoaded'), cargamos los datos
+    document.addEventListener('DOMContentLoaded', loadIngredients);
+
+</script>
+<!-- === Fin del Script === -->
+</body>
+</html>
