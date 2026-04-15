@@ -1,0 +1,57 @@
+<!-- Plantilla base: comparte cabecera, estilos globales y bloque de contenido. -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PantryGo{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: "#F4F8F5",
+                        sand: "#EAF1EC",
+                        herb: "#93B1A6",
+                        ocean: "#5C8374",
+                        olive: "#183D3D",
+                        ink: "#040D12"
+                    },
+                    fontFamily: {
+                        display: ["Playfair Display", "serif"],
+                        body: ["Manrope", "sans-serif"]
+                    },
+                    boxShadow: {
+                        soft: "0 24px 70px rgba(4, 13, 18, 0.14)"
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body class="theme-app bg-cream font-body text-ink">
+    <div class="app-shell min-h-screen">
+        <header class="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-6 lg:px-8">
+            <a href="{{ url_for('web.index') }}" class="brand-link flex items-center gap-3">
+                <span>
+                    <span class="block font-display text-2xl leading-none text-ink">PantryGo</span>
+                    <span class="block text-sm text-ink/65">Tu despensa convertida en recetas</span>
+                </span>
+            </a>
+            <nav class="hidden items-center gap-2 md:flex">
+                <a href="{{ url_for('web.index') }}" class="nav-pill rounded-full border border-herb/25 bg-white/85 px-4 py-2 text-sm font-semibold text-ink/90 transition">Inicio</a>
+                <a href="{{ url_for('web.inventory') }}" class="nav-pill rounded-full border border-herb/25 bg-white/85 px-4 py-2 text-sm font-semibold text-ink/90 transition">Mi inventario</a>
+                <a href="{{ url_for('web.recipes') }}" class="nav-pill rounded-full border border-herb/25 bg-white/85 px-4 py-2 text-sm font-semibold text-ink/90 transition">Recetas</a>
+            </nav>
+        </header>
+        {% block content %}{% endblock %}
+    </div>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

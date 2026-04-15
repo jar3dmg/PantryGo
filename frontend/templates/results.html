@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+
+{% block title %}Resultados | PantryGo{% endblock %}
+
+{% block content %}
+<!-- Resultados del inventario: recetas posibles, sugerencias y bloqueadas. -->
+<main class="mx-auto w-full max-w-7xl px-5 pb-16 pt-4 lg:px-8">
+    <section class="animate-rise mb-8 overflow-hidden rounded-[2rem] border border-herb/25 bg-white/90 p-8 shadow-soft">
+        <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <div>
+                <div class="mb-4 inline-flex rounded-full border border-olive/25 bg-herb/50 px-4 py-2 text-sm font-semibold text-ink">
+                    PantryGo encontro esto para ti
+                </div>
+                <h1 class="font-display text-5xl leading-tight text-ink">
+                    Estas son las recetas que mejor encajan con tu inventario.
+                </h1>
+                <p class="mt-4 max-w-2xl text-lg leading-8 text-ink/75">
+                    Ya puedes consultar recetas segun lo que tienes disponible y tambien descartar automaticamente las que usen ingredientes prohibidos.
+                </p>
+            </div>
+            <div class="glow-panel rounded-[1.75rem] border border-herb/20 bg-sand p-6">
+                <p class="text-sm font-bold uppercase tracking-[0.18em] text-ink/55">Resumen de filtro</p>
+                <p class="mt-3 text-sm font-semibold text-ink/60">Disponibles</p>
+                <p class="mt-1 text-base leading-7 text-ink/80">{{ available_ingredients_str or 'Sin ingredientes capturados' }}</p>
+                <p class="mt-4 text-sm font-semibold text-ink/60">Prohibidos</p>
+                <p class="mt-1 text-base leading-7 text-ink/80">{{ banned_ingredients_str or 'Sin restricciones registradas' }}</p>
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <a
+                        href="{{ url_for('web.inventory') }}"
+                        class="button-primary rounded-full px-5 py-3 text-sm font-extrabold text-white"
+                    >
+                        Volver al inventario
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="grid gap-8 xl:grid-cols-[1fr_1fr]">
+        <div class="animate-rise rounded-[2rem] border border-herb/25 bg-white p-8 shadow-soft">
+            <div class="mb-6 flex items-center justify-between gap-4">
+                <div>
+                    <p class="text-sm font-bold uppercase tracking-[0.18em] text-ink/55">Coincidencia completa</p>
+                    <h2 class="mt-2 font-display text-3xl text-ink">Puedes preparar ahora</h2>
+                </div>
+                <span class="rounded-full bg-herb px-4 py-2 text-sm font-extrabold text-ink">{{ can_make_list|length }} recetas</span>
+            </div>
+            <div class="mb-5">
+                <label for="can-make-category-filter" class="mb-2 block text-xs font-bold uppercase tracking-[0.18em] text-ink/55">
+                    Filtrar por categoria
+                </label>
+                <select id="can-make-category-filter" class="results-category-filter catalog-select w-full rounded-[1rem] border border-olive/20 bg-sand px-4 py-3 text-sm font-semibold text-ink outline-none transition focus:border-olive focus:ring-4 focus:ring-herb/60" data-target-list="can-make-list">
+                    <option value="">Todas las categorias</option>
+                    {% set can_make_categories = can_make_list | map(attribute='category_name') | reject('equalto', none) | unique | list | sort %}
+                    {% for category in can_make_categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% if can_make_list %}
+            <ul id="can-make-list" class="list-inside list-none space-y-3">
+                {% for recipe in can_make_list %}
+                <li class="recipe-filter-item overflow-hidden rounded-[1.5rem] border border-olive/15 bg-cream" data-category="{{ recipe.category_name or '' }}">
+                    <button class="recipe-toggle-button flex w-full items-center justify-between gap-4 bg-transparent p-5 text-left transition hover:bg-herb/30">
+                        <span>
+                            <span class="block text-xl font-extrabold text-ink">{{ recipe.name }}</span>
+                            <span class="mt-1 block text-sm text-ink/65">Todo lo necesario esta cubierto por tu lista actual.</span>
+                            <span class="mt-2 flex flex-wrap gap-2">
+                                {% if recipe.category_name %}
+                                <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-ink/65">{{ recipe.category_name }}</span>
+                                {% endif %}
+                                {% if recipe.total_time_minutes %}
+                                <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-ink/65">{{ recipe.total_time_minutes }} min</span>
+                                {% endif %}
+                            </span>
+                        </span>
+                        <svg class="recipe-toggle-icon h-5 w-5 shrink-0 text-olive transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+
+                    <div class="recipe-details-panel hidden border-t border-olive/15 bg-white p-6">
+                        <h4 class="mb-2 text-sm font-bold uppercase tracking-[0.15em] text-ink/55">Descripcion</h4>
+                        <p class="mb-5 text-base leading-7 text-ink/75">{{ recipe.description }}</p>
+
+                        <h4 class="mb-2 text-sm font-bold uppercase tracking-[0.15em] text-ink/55">Ingredientes</h4>
+                        <ul class="mb-5 list-inside list-disc pl-4 text-ink/75">
+                            {% for ing in recipe.ingredients %}
+                            <li>
+                                {{ ing.name }}
+                                {% if ing.quantity %} - {{ ing.quantity }}{% endif %}
+                                {% if ing.unit_symbol %} {{ ing.unit_symbol }}{% elif ing.unit_name %} {{ ing.unit_name }}{% endif %}
+                                {% if ing.preparation_note %} ({{ ing.preparation_note }}){% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+
+                        <h4 class="mb-2 text-sm font-bold uppercase tracking-[0.15em] text-ink/55">Instrucciones</h4>
+                        <ol class="list-inside list-decimal pl-4 text-ink/75">
+                            {% for step in recipe.steps %}
+                            <li>{{ step.instruction }}</li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="rounded-[1.5rem] border border-dashed border-olive/30 bg-sand p-5 text-base italic text-ink/70">
+                No encontramos recetas exactas con los ingredientes que tienes.
+            </p>
+            {% endif %}
+        </div>
+
+        <div class="animate-rise rounded-[2rem] border border-herb/25 bg-white p-8 shadow-soft">
+            <div class="mb-6 flex items-center justify-between gap-4">
+                <div>
+                    <p class="text-sm font-bold uppercase tracking-[0.18em] text-ink/55">Coincidencia cercana</p>
+                    <h2 class="mt-2 font-display text-3xl text-ink">Te faltan pocos ingredientes</h2>
+                </div>
+                <span class="rounded-full border border-olive/25 bg-sand px-4 py-2 text-sm font-extrabold text-ink">{{ suggestions_list|length }} sugerencias</span>
+            </div>
+            <div class="mb-5">
+                <label for="suggestions-category-filter" class="mb-2 block text-xs font-bold uppercase tracking-[0.18em] text-ink/55">
+                    Filtrar por categoria
+                </label>
+                <select id="suggestions-category-filter" class="results-category-filter catalog-select w-full rounded-[1rem] border border-olive/20 bg-sand px-4 py-3 text-sm font-semibold text-ink outline-none transition focus:border-olive focus:ring-4 focus:ring-herb/60" data-target-list="suggestions-list">
+                    <option value="">Todas las categorias</option>
+                    {% set suggestion_categories = suggestions_list | map(attribute='category_name') | reject('equalto', none) | unique | list | sort %}
+                    {% for category in suggestion_categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% if suggestions_list %}
+            <ul id="suggestions-list" class="grid grid-cols-1 gap-3 list-inside list-none">
+                {% for suggestion in suggestions_list %}
+                <li class="recipe-filter-item overflow-hidden rounded-[1.2rem] border border-olive/15 bg-cream" data-category="{{ suggestion.category_name or '' }}">
+                    <button class="recipe-toggle-button flex w-full items-center justify-between gap-4 bg-transparent p-4 text-left transition hover:bg-herb/30">
+                        <span>
+                            <span class="block text-lg font-extrabold text-ink">{{ suggestion.name }}</span>
+                            <span class="mt-2 flex flex-wrap gap-2">
+                                {% if suggestion.category_name %}
+                                <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-ink/65">{{ suggestion.category_name }}</span>
+                                {% endif %}
+                                {% if suggestion.total_time_minutes %}
+                                <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-ink/65">{{ suggestion.total_time_minutes }} min</span>
+                                {% endif %}
+                            </span>
+                        </span>
+                        <svg class="recipe-toggle-icon h-5 w-5 shrink-0 text-olive transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+
+                    <div class="recipe-details-panel hidden border-t border-olive/15 bg-white p-5">
+                        <div class="mb-5 rounded-[1rem] border border-olive/15 bg-sand px-4 py-3">
+                            <p class="text-xs font-bold uppercase tracking-[0.18em] text-ink/55">Ingredientes faltantes</p>
+                            <p class="mt-2 text-sm font-semibold text-ink/80">{{ suggestion.missing_ingredients | join(', ') }}</p>
+                        </div>
+                        <h4 class="mb-2 text-sm font-bold uppercase tracking-[0.15em] text-ink/55">Descripcion</h4>
+                        <p class="mb-5 text-base leading-7 text-ink/75">{{ suggestion.description }}</p>
+
+                        <h4 class="mb-2 text-sm font-bold uppercase tracking-[0.15em] text-ink/55">Ingredientes</h4>
+                        <ul class="mb-5 list-inside list-disc pl-4 text-ink/75">
+                            {% for ing in suggestion.ingredients %}
+                            <li>
+                                {{ ing.name }}
+                                {% if ing.quantity %} - {{ ing.quantity }}{% endif %}
+                                {% if ing.unit_symbol %} {{ ing.unit_symbol }}{% elif ing.unit_name %} {{ ing.unit_name }}{% endif %}
+                                {% if ing.preparation_note %} ({{ ing.preparation_note }}){% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+
+                        <h4 class="mb-2 text-sm font-bold uppercase tracking-[0.15em] text-ink/55">Instrucciones</h4>
+                        <ol class="list-inside list-decimal pl-4 text-ink/75">
+                            {% for step in suggestion.steps %}
+                            <li>{{ step.instruction }}</li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <div id="pagination-controls" class="mt-6 flex items-center justify-center gap-4"></div>
+            {% else %}
+            <p class="rounded-[1.5rem] border border-dashed border-olive/30 bg-sand p-5 text-base italic text-ink/70">
+                No hay sugerencias cercanas por ahora.
+            </p>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="animate-rise mt-8 rounded-[2rem] border border-herb/25 bg-white p-8 shadow-soft">
+        <div class="mb-6 flex items-center justify-between gap-4">
+            <div>
+                <p class="text-sm font-bold uppercase tracking-[0.18em] text-ink/55">Bloqueadas</p>
+                <h2 class="mt-2 font-display text-3xl text-ink">Recetas descartadas por ingredientes prohibidos</h2>
+            </div>
+            <span class="rounded-full border border-olive/25 bg-sand px-4 py-2 text-sm font-extrabold text-ink">{{ blocked_list|length }} bloqueadas</span>
+        </div>
+        {% if blocked_list %}
+        <div id="blocked-list" class="grid gap-4 md:grid-cols-2">
+            {% for recipe in blocked_list %}
+            <article class="blocked-filter-item rounded-[1.5rem] border border-rose-200 bg-rose-50/70 p-5">
+                <h3 class="text-xl font-extrabold text-ink">{{ recipe.name }}</h3>
+                <p class="mt-2 text-sm leading-6 text-ink/70">{{ recipe.description }}</p>
+                <p class="mt-4 text-sm font-semibold text-rose-700">
+                    Bloqueada por: {{ recipe.blocked_by | join(', ') }}
+                </p>
+            </article>
+            {% endfor %}
+        </div>
+        <div id="blocked-pagination-controls" class="mt-6 flex items-center justify-center gap-4"></div>
+        {% else %}
+        <p class="rounded-[1.5rem] border border-dashed border-olive/30 bg-sand p-5 text-base italic text-ink/70">
+            Ninguna receta fue bloqueada por ingredientes prohibidos.
+        </p>
+        {% endif %}
+    </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/results.js') }}"></script>
+{% endblock %}

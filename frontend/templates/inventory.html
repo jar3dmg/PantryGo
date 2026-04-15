@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block title %}Mi Inventario | PantryGo{% endblock %}
+
+{% block content %}
+<!-- Vista para seleccionar ingredientes disponibles y prohibidos desde el catalogo. -->
+<main class="mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 pb-16 pt-4 lg:px-8">
+    <section class="animate-rise rounded-[2rem] border border-herb/25 bg-white/90 p-8 shadow-soft">
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+                <p class="text-sm font-bold uppercase tracking-[0.18em] text-ink/55">PantryGo · Mi inventario</p>
+                <h1 class="mt-2 font-display text-5xl text-ink">Busca recetas desde tu inventario personal</h1>
+                <p class="mt-4 max-w-3xl text-lg leading-8 text-ink/75">
+                    Elige ingredientes disponibles y prohibidos desde catalogos. PantryGo usa esa seleccion para mostrarte recetas posibles, sugeridas y bloqueadas.
+                </p>
+            </div>
+            <div class="rounded-full border border-herb/25 bg-sand px-4 py-2 text-sm font-bold text-ink/70">
+                Fuente: {{ data_source|upper }}
+            </div>
+        </div>
+        {% if data_source_error %}
+        <div class="mt-5 rounded-[1.25rem] border border-amber-300 bg-sand px-4 py-3 text-sm text-amber-800">
+            No se pudo conectar a MySQL. Puedes seguir usando el inventario con el modo de respaldo.
+        </div>
+        {% endif %}
+    </section>
+
+    <section class="animate-rise rounded-[2rem] border border-herb/25 bg-white/85 p-4 shadow-soft backdrop-blur sm:p-6">
+        <form action="{{ url_for('web.get_plan') }}" method="POST">
+            <input type="hidden" name="available_ingredients" id="available-ingredients-input">
+            <input type="hidden" name="banned_ingredients" id="banned-ingredients-input">
+
+            <div class="search-hero glow-panel mb-6 rounded-[1.75rem] border border-herb/20 bg-sand p-5">
+                <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                        <p class="text-xs font-bold uppercase tracking-[0.22em] text-ink/50">Paso principal</p>
+                        <h2 class="mt-1 font-display text-3xl text-ink">Buscar recetas con tu seleccion actual</h2>
+                        <p class="mt-2 text-sm leading-6 text-ink/70">Agrega ingredientes abajo y lanza la busqueda cuando quieras. Este es el atajo principal de PantryGo.</p>
+                    </div>
+                    <div class="inventory-action-bar flex flex-col gap-3 sm:flex-row sm:items-center">
+                        <button type="submit" class="button-primary search-primary-button rounded-full px-8 py-4 text-lg font-extrabold text-white focus:outline-none focus:ring-4 focus:ring-herb">
+                            Buscar recetas
+                        </button>
+                        <button type="button" id="clear-button" class="button-secondary rounded-full px-6 py-3 text-base font-extrabold text-white focus:outline-none focus:ring-4 focus:ring-herb">
+                            Limpiar seleccion
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+                <div class="animate-rise space-y-5 rounded-[1.75rem] border border-herb/20 bg-sand p-5">
+                    <div>
+                        <p class="text-sm font-bold uppercase tracking-[0.18em] text-ink/55">Seleccion rapida</p>
+                        <h3 class="mt-2 font-display text-3xl text-ink">Agrega desde el catalogo</h3>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label for="ingredient-category-select" class="mb-2 block text-sm font-bold uppercase tracking-[0.15em] text-ink/60">
+                                Categoria
+                            </label>
+                            <select id="ingredient-category-select" class="catalog-select w-full rounded-[1.2rem] border border-olive/20 bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-olive focus:ring-4 focus:ring-herb/60">
+                                <option value="">Selecciona una categoria</option>
+                                {% for category in ingredient_catalog_grouped %}
+                                <option value="{{ category.slug }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="ingredient-select" class="mb-2 block text-sm font-bold uppercase tracking-[0.15em] text-ink/60">
+                                Ingrediente
+                            </label>
+                            <select id="ingredient-select" class="catalog-select w-full rounded-[1.2rem] border border-olive/20 bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-olive focus:ring-4 focus:ring-herb/60">
+                                <option value="">Primero elige una categoria</option>
+                            </select>
+                        </div>
+
+                        <div class="grid gap-3 sm:grid-cols-2">
+                            <button type="button" id="add-available-button" class="button-primary rounded-full px-6 py-3 text-base font-extrabold text-white">
+                                Agregar a disponibles
+                            </button>
+                            <button type="button" id="add-banned-button" class="button-secondary rounded-full px-6 py-3 text-base font-extrabold text-white">
+                                Marcar como prohibido
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid gap-5 lg:grid-cols-2">
+                    <article class="animate-rise rounded-[1.75rem] border border-herb/20 bg-cream p-5">
+                        <div class="flex items-center justify-between gap-3">
+                            <div>
+                                <p class="text-sm font-bold uppercase tracking-[0.18em] text-ink/55">Disponibles</p>
+                                <h3 class="mt-1 text-2xl font-extrabold text-ink">Inventario actual</h3>
+                            </div>
+                            <span id="available-count" class="rounded-full bg-white px-3 py-1 text-sm font-extrabold text-ink/70">0</span>
+                        </div>
+                        <div id="available-empty-state" class="mt-4 rounded-[1.25rem] border border-dashed border-olive/30 bg-white px-4 py-5 text-sm text-ink/65">
+                            Todavia no has agregado ingredientes disponibles.
+                        </div>
+                        <div id="available-chip-list" class="mt-4 flex flex-wrap gap-2"></div>
+                    </article>
+
+                    <article class="animate-rise rounded-[1.75rem] border border-olive/20 bg-white p-5">
+                        <div class="flex items-center justify-between gap-3">
+                            <div>
+                                <p class="text-sm font-bold uppercase tracking-[0.18em] text-ink/55">Prohibidos</p>
+                                <h3 class="mt-1 text-2xl font-extrabold text-ink">Ingredientes a evitar</h3>
+                            </div>
+                            <span id="banned-count" class="rounded-full bg-white px-3 py-1 text-sm font-extrabold text-ink/70">0</span>
+                        </div>
+                        <div id="banned-empty-state" class="mt-4 rounded-[1.25rem] border border-dashed border-rose-200 bg-white px-4 py-5 text-sm text-ink/65">
+                            No has bloqueado ingredientes todavia.
+                        </div>
+                        <div id="banned-chip-list" class="mt-4 flex flex-wrap gap-2"></div>
+                    </article>
+                </div>
+            </div>
+
+            <section class="mt-8">
+                <div class="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                        <p class="text-xs font-bold uppercase tracking-[0.22em] text-ink/50">Catalogo navegable</p>
+                        <h3 class="mt-1 font-display text-2xl text-ink sm:text-3xl">Explora ingredientes por categoria</h3>
+                    </div>
+                    <div class="inline-flex rounded-full border border-herb/25 bg-sand px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] text-ink/70">
+                        Usa los botones para agregar rapido
+                    </div>
+                </div>
+
+                <div class="inventory-catalog-grid grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                    {% for category in ingredient_catalog_grouped %}
+                    <section class="animate-rise rounded-[1.35rem] border border-herb/20 bg-sand p-4">
+                        <div class="mb-3 flex items-center justify-between gap-3">
+                            <h4 class="font-display text-xl text-ink">{{ category.name }}</h4>
+                            <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-ink/60">{{ category.ingredients|length }}</span>
+                        </div>
+                        <div class="catalog-scroll-area flex max-h-64 flex-wrap gap-2 overflow-y-auto pr-1">
+                            {% for ingredient in category.ingredients %}
+                            <article class="catalog-pill flex w-full items-center justify-between gap-3 rounded-[1rem] border border-olive/20 bg-white px-3 py-2">
+                                <span class="text-sm font-bold text-ink">{{ ingredient.name }}</span>
+                                <div class="flex shrink-0 gap-2">
+                                    <button type="button" class="catalog-action button-primary rounded-full px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.08em] text-white" data-catalog-action="available" data-ingredient-name="{{ ingredient.name }}">
+                                        Tengo
+                                    </button>
+                                    <button type="button" class="catalog-action button-secondary rounded-full px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.08em] text-white" data-catalog-action="banned" data-ingredient-name="{{ ingredient.name }}">
+                                        Prohibido
+                                    </button>
+                                </div>
+                            </article>
+                            {% endfor %}
+                        </div>
+                    </section>
+                    {% endfor %}
+                </div>
+            </section>
+
+        </form>
+    </section>
+</main>
+
+<script id="ingredient-catalog-data" type="application/json">{{ ingredient_catalog_grouped | tojson }}</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Recetas | PantryGo{% endblock %}
+
+{% block content %}
+<!-- Catalogo completo de recetas con filtro por tipo y tarjetas desplegables. -->
+<main class="mx-auto w-full max-w-7xl px-5 pb-16 pt-4 lg:px-8">
+    <section class="animate-rise mb-8 rounded-[2rem] border border-herb/25 bg-white/90 p-8 shadow-soft">
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+                <p class="text-sm font-bold uppercase tracking-[0.18em] text-ink/55">PantryGo · Catalogo completo</p>
+                <h1 class="mt-2 font-display text-5xl text-ink">Todas las recetas disponibles</h1>
+                <p class="mt-4 max-w-3xl text-lg leading-8 text-ink/75">
+                    Explora todo el recetario cargado en la base. Desde aqui puedes revisar ingredientes, tiempos e instrucciones sin necesidad de filtrar primero.
+                </p>
+            </div>
+            <div class="rounded-full border border-olive/25 bg-sand px-4 py-2 text-sm font-bold text-ink/70">
+                {{ recipes|length }} recetas cargadas
+            </div>
+        </div>
+        {% if data_source_error %}
+        <div class="mt-5 rounded-[1.25rem] border border-amber-300 bg-sand px-4 py-3 text-sm text-amber-800">
+            No se pudo conectar a MySQL. Estas viendo el modo de respaldo disponible.
+        </div>
+        {% endif %}
+        <div class="mt-6 max-w-sm">
+            <label for="recipes-category-filter" class="mb-2 block text-xs font-bold uppercase tracking-[0.18em] text-ink/55">
+                Filtrar por tipo
+            </label>
+            <select id="recipes-category-filter" class="results-category-filter catalog-select w-full rounded-[1rem] border border-olive/20 bg-sand px-4 py-3 text-sm font-semibold text-ink outline-none transition focus:border-olive focus:ring-4 focus:ring-herb/60" data-target-list="recipes-list">
+                <option value="">Todos los tipos</option>
+                {% set recipe_categories = recipes | map(attribute='category_name') | reject('equalto', none) | unique | list | sort %}
+                {% for category in recipe_categories %}
+                <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </section>
+
+    <section id="recipes-list" class="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {% for recipe in recipes %}
+        <article class="recipe-filter-item animate-rise overflow-hidden rounded-[1.75rem] border border-herb/20 bg-white shadow-soft" data-category="{{ recipe.category_name or '' }}">
+            <button class="recipe-toggle-button flex w-full items-center justify-between gap-4 bg-cream p-5 text-left transition hover:bg-herb/30">
+                <span>
+                    <span class="block text-2xl font-extrabold text-ink">{{ recipe.name }}</span>
+                    <span class="mt-2 flex flex-wrap gap-2">
+                        {% if recipe.category_name %}
+                        <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-ink/65">{{ recipe.category_name }}</span>
+                        {% endif %}
+                        {% if recipe.difficulty_name %}
+                        <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-ink/65">{{ recipe.difficulty_name }}</span>
+                        {% endif %}
+                        {% if recipe.total_time_minutes %}
+                        <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-ink/65">{{ recipe.total_time_minutes }} min</span>
+                        {% endif %}
+                    </span>
+                </span>
+                <svg class="recipe-toggle-icon h-5 w-5 shrink-0 text-olive transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+
+            <div class="recipe-details-panel hidden border-t border-olive/15 bg-white p-6">
+                <p class="mb-5 text-base leading-7 text-ink/75">{{ recipe.description }}</p>
+
+                <h4 class="mb-2 text-sm font-bold uppercase tracking-[0.15em] text-ink/55">Ingredientes</h4>
+                <ul class="mb-5 list-inside list-disc pl-4 text-ink/75">
+                    {% for ing in recipe.ingredients %}
+                    <li>
+                        {{ ing.name }}
+                        {% if ing.quantity %} - {{ ing.quantity }}{% endif %}
+                        {% if ing.unit_symbol %} {{ ing.unit_symbol }}{% elif ing.unit_name %} {{ ing.unit_name }}{% endif %}
+                        {% if ing.preparation_note %} ({{ ing.preparation_note }}){% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <h4 class="mb-2 text-sm font-bold uppercase tracking-[0.15em] text-ink/55">Instrucciones</h4>
+                <ol class="list-inside list-decimal pl-4 text-ink/75">
+                    {% for step in recipe.steps %}
+                    <li>{{ step.instruction }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </article>
+        {% endfor %}
+    </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/results.js') }}"></script>
+{% endblock %}

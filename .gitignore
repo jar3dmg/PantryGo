@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+
+# Cache de herramientas de Python
+.pytest_cache/
+
+# Archivo opcional local para el modo CSV
+backend/data/recipes.csv

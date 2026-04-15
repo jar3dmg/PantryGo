@@ -1,0 +1,314 @@
+/* Estilos globales de PantryGo: paleta, layout base, botones y animaciones. */
+:root {
+    --color-cream: #f4f8f5;
+    --color-sand: #eaf1ec;
+    --color-herb: #93b1a6;
+    --color-ocean: #5c8374;
+    --color-olive: #183d3d;
+    --color-ink: #040d12;
+    --color-card: rgba(255, 255, 255, 0.86);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top left, rgba(92, 131, 116, 0.12), transparent 24%),
+        radial-gradient(circle at top right, rgba(147, 177, 166, 0.16), transparent 22%),
+        radial-gradient(circle at 18% 78%, rgba(24, 61, 61, 0.08), transparent 22%),
+        linear-gradient(180deg, #fbfdfb 0%, #f4f8f5 48%, #eef4ef 100%);
+    color: var(--color-ink);
+}
+
+.app-shell {
+    position: relative;
+}
+
+.app-shell::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(4, 13, 18, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(4, 13, 18, 0.03) 1px, transparent 1px);
+    background-size: 34px 34px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.2), transparent 88%);
+}
+
+.app-shell::after {
+    content: "";
+    position: fixed;
+    inset: -12% -8%;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 12% 22%, rgba(147, 177, 166, 0.18), transparent 16%),
+        radial-gradient(circle at 84% 18%, rgba(92, 131, 116, 0.14), transparent 18%),
+        radial-gradient(circle at 78% 76%, rgba(24, 61, 61, 0.1), transparent 18%);
+    filter: blur(18px);
+    animation: ambient-shift 16s ease-in-out infinite alternate;
+}
+
+.brand-link {
+    transition: transform 180ms ease, filter 180ms ease;
+}
+
+.brand-link:hover {
+    transform: translateY(-1px);
+    filter: saturate(1.08);
+}
+
+.hero-panel {
+    position: relative;
+}
+
+.hero-panel::after {
+    content: "";
+    position: absolute;
+    right: -5rem;
+    top: -4rem;
+    width: 14rem;
+    height: 14rem;
+    border-radius: 9999px;
+    background: radial-gradient(circle, rgba(147, 177, 166, 0.26), rgba(147, 177, 166, 0));
+}
+
+.nav-pill:hover {
+    transform: translateY(-1px);
+    border-color: rgba(92, 131, 116, 0.34);
+    background: rgba(147, 177, 166, 0.14);
+    box-shadow: 0 14px 30px rgba(24, 61, 61, 0.1);
+}
+
+.feature-card {
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(92, 131, 116, 0.28);
+    box-shadow: 0 20px 44px rgba(24, 61, 61, 0.1);
+}
+
+.feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+    height: 3rem;
+    padding: 0 0.85rem;
+    border-radius: 9999px;
+    background: var(--color-sand);
+    color: var(--color-ink);
+    font-weight: 800;
+}
+
+.app-tab {
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.app-tab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(37, 42, 52, 0.1);
+}
+
+.app-tab.is-active {
+    border-color: rgba(255, 46, 99, 0.32);
+    box-shadow: 0 18px 36px rgba(37, 42, 52, 0.12);
+}
+
+.selection-chip {
+    border: 1px solid rgba(92, 131, 116, 0.22);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.selection-chip:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(37, 42, 52, 0.1);
+}
+
+.catalog-pill {
+    min-height: 0;
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.catalog-pill:hover {
+    transform: translateY(-2px);
+    border-color: rgba(92, 131, 116, 0.35);
+    box-shadow: 0 14px 30px rgba(24, 61, 61, 0.08);
+}
+
+.catalog-action {
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.catalog-action:hover {
+    transform: translateY(-1px);
+}
+
+.button-primary,
+.button-secondary {
+    transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease, background 180ms ease;
+}
+
+.button-primary {
+    background: linear-gradient(135deg, var(--color-olive), #245454);
+    box-shadow: 0 18px 34px rgba(24, 61, 61, 0.22);
+}
+
+.button-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 44px rgba(24, 61, 61, 0.28);
+    filter: saturate(1.05);
+}
+
+.button-secondary {
+    background: linear-gradient(135deg, var(--color-ocean), var(--color-herb));
+    box-shadow: 0 16px 32px rgba(92, 131, 116, 0.22);
+}
+
+.button-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 40px rgba(92, 131, 116, 0.28);
+    filter: saturate(1.05);
+}
+
+.catalog-select {
+    appearance: none;
+    color: var(--color-ink);
+    background-image:
+        linear-gradient(45deg, transparent 50%, rgba(4, 13, 18, 0.72) 50%),
+        linear-gradient(135deg, rgba(4, 13, 18, 0.72) 50%, transparent 50%);
+    background-position:
+        calc(100% - 22px) calc(50% - 3px),
+        calc(100% - 16px) calc(50% - 3px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+}
+
+.catalog-scroll-area {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(92, 131, 116, 0.6) rgba(234, 241, 236, 0.9);
+}
+
+.catalog-select option {
+    background: #ffffff;
+    color: #040d12;
+}
+
+.inventory-catalog-grid {
+    align-items: start;
+}
+
+.inventory-action-bar button[type="submit"] {
+    box-shadow: 0 18px 36px rgba(24, 61, 61, 0.24);
+    min-width: 15rem;
+}
+
+.inventory-action-bar button[type="submit"]:hover {
+    box-shadow: 0 24px 44px rgba(24, 61, 61, 0.28);
+}
+
+.search-primary-button {
+    box-shadow: 0 22px 42px rgba(24, 61, 61, 0.26);
+}
+
+.search-primary-button:hover {
+    box-shadow: 0 28px 50px rgba(24, 61, 61, 0.3);
+}
+
+.search-hero {
+    background:
+        radial-gradient(circle at right top, rgba(147, 177, 166, 0.16), transparent 28%),
+        radial-gradient(circle at left bottom, rgba(92, 131, 116, 0.12), transparent 26%),
+        linear-gradient(135deg, rgba(248, 251, 248, 1), rgba(234, 241, 236, 1));
+}
+
+#pagination-controls button {
+    border: 1px solid rgba(92, 131, 116, 0.24);
+}
+
+.glow-panel {
+    position: relative;
+    overflow: hidden;
+}
+
+.glow-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at top left, rgba(147, 177, 166, 0.16), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(92, 131, 116, 0.1), transparent 28%);
+}
+
+.welcome-logo {
+    border: 1px solid rgba(92, 131, 116, 0.2);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(240, 246, 242, 0.98));
+    box-shadow:
+        0 26px 62px rgba(24, 61, 61, 0.14),
+        0 0 30px rgba(147, 177, 166, 0.16);
+}
+
+.theme-app header,
+.theme-app section,
+.theme-app article,
+.theme-app aside,
+.theme-app .recipe-details-panel,
+.theme-app .glow-panel {
+    backdrop-filter: blur(14px);
+}
+
+.animate-rise {
+    animation: rise-in 520ms ease both;
+}
+
+.animate-float {
+    animation: floaty 4.2s ease-in-out infinite;
+}
+
+@keyframes rise-in {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floaty {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+@keyframes ambient-shift {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate3d(1.5%, -1.5%, 0) scale(1.03);
+    }
+
+    100% {
+        transform: translate3d(-1%, 1%, 0) scale(1.02);
+    }
+}
