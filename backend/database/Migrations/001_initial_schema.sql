@@ -1,8 +1,4 @@
-CREATE DATABASE IF NOT EXISTS recetario_app
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
 
-USE recetario_app;
 
 CREATE TABLE catalog_roles (
     role_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,

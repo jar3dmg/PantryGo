@@ -69,7 +69,6 @@
                     <li>
                         {{ ing.name }}
                         {% if ing.quantity %} - {{ ing.quantity }}{% endif %}
-                        {% if ing.unit_symbol %} {{ ing.unit_symbol }}{% elif ing.unit_name %} {{ ing.unit_name }}{% endif %}
                         {% if ing.preparation_note %} ({{ ing.preparation_note }}){% endif %}
                     </li>
                     {% endfor %}

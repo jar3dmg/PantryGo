@@ -1,45 +1,30 @@
-"""Consultas del catalogo de ingredientes desde MySQL."""
+"""Consultas ORM del catalogo de ingredientes."""
 
-import pymysql
-from pymysql.cursors import DictCursor
+from sqlalchemy.orm import joinedload
 
-
-def get_connection(db_config: dict):
-    """Abre una conexion a MySQL usando cursores de tipo diccionario."""
-    connection_config = db_config.copy()
-    connection_config["cursorclass"] = DictCursor
-    return pymysql.connect(**connection_config)
+from ..models import Ingredient
 
 
-def fetch_ingredient_catalog(db_config: dict):
+def fetch_ingredient_catalog():
     """Devuelve ingredientes activos junto con su categoria."""
-    query = """
-        SELECT
-            i.ingredient_id,
-            i.name AS ingredient_name,
-            i.slug AS ingredient_slug,
-            ic.name AS category_name,
-            ic.slug AS category_slug
-        FROM ingredients AS i
-        INNER JOIN ingredient_categories AS ic
-            ON ic.ingredient_category_id = i.ingredient_category_id
-        WHERE i.is_active = 1
-          AND ic.is_active = 1
-        ORDER BY ic.name, i.name
-    """
-
-    with get_connection(db_config) as connection:
-        with connection.cursor() as cursor:
-            cursor.execute(query)
-            rows = cursor.fetchall()
+    ingredients = (
+        Ingredient.query.options(
+            joinedload(Ingredient.category),
+        )
+        .join(Ingredient.category)
+        .filter(Ingredient.is_active.is_(True))
+        .filter(Ingredient.category.has(is_active=True))
+        .order_by(Ingredient.name.asc())
+        .all()
+    )
 
     return [
         {
-            "id": row["ingredient_id"],
-            "name": row["ingredient_name"],
-            "slug": row["ingredient_slug"],
-            "category_name": row["category_name"],
-            "category_slug": row["category_slug"],
+            "id": ingredient.ingredient_id,
+            "name": ingredient.name,
+            "slug": ingredient.slug,
+            "category_name": ingredient.category.name,
+            "category_slug": ingredient.category.slug,
         }
-        for row in rows
+        for ingredient in ingredients
     ]

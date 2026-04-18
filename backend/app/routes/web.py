@@ -42,6 +42,16 @@ def recipes():
     )
 
 
+@web_bp.route("/catalog-admin")
+def catalog_admin():
+    """Renderiza la vista administrativa para CRUD de catalogos."""
+    return render_template(
+        "catalog_admin.html",
+        data_source=current_app.config.get("DATA_SOURCE", "csv"),
+        data_source_error=current_app.config.get("DATA_SOURCE_ERROR"),
+    )
+
+
 @web_bp.route("/plan", methods=["POST"])
 def get_plan():
     """Clasifica recetas segun ingredientes disponibles y prohibidos."""

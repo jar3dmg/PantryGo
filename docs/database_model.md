@@ -14,10 +14,23 @@ Este proyecto evoluciona de un recetario basado en CSV a una aplicacion con usua
 
 - MySQL o MariaDB administrado desde XAMPP y phpMyAdmin.
 
+## Estado actual de infraestructura
+
+La aplicacion ya migro su acceso principal a datos hacia:
+
+- `Flask-SQLAlchemy` para modelos y consultas.
+- Comandos propios `flask migrate ...` para ejecutar scripts dentro de `Migrations`.
+- Comandos propios `flask seed ...` para ejecutar scripts dentro de `Seeders`.
+
 ## Archivos SQL
 
 - `backend/database/mysql/001_schema.sql`: crea la base de datos y todas las tablas.
 - `backend/database/mysql/002_catalog_seed.sql`: inserta catalogos base.
+
+Estos archivos se conservan como referencia legacy, pero el flujo recomendado ahora vive en:
+
+- `backend/database/Migrations/`
+- `backend/database/Seeders/`
 
 ## Entidades principales
 
@@ -51,6 +64,41 @@ Este proyecto evoluciona de un recetario basado en CSV a una aplicacion con usua
 3. Importa `backend/database/mysql/002_catalog_seed.sql`.
 4. Empieza a cargar ingredientes y recetas desde catalogos normalizados.
 
-## Siguiente paso recomendado
+## Estado actual del CRUD backend
 
-Conectar Flask a MySQL con SQLAlchemy o Flask-MySQLdb y reemplazar la carga desde CSV por consultas reales a la base de datos.
+Ya existe una primera capa de API para administrar los catalogos principales desde Flask usando SQLAlchemy:
+
+- Ingredientes:
+  `GET /api/catalogs/ingredients`
+  `GET /api/catalogs/ingredients/<id>`
+  `POST /api/catalogs/ingredients`
+  `PUT /api/catalogs/ingredients/<id>`
+  `DELETE /api/catalogs/ingredients/<id>`
+- Recetas:
+  `GET /api/catalogs/recipes`
+  `GET /api/catalogs/recipes/<id>`
+  `POST /api/catalogs/recipes`
+  `PUT /api/catalogs/recipes/<id>`
+  `DELETE /api/catalogs/recipes/<id>`
+- Catalogos auxiliares:
+  `GET /api/catalogs/metadata`
+
+Decisiones de negocio actuales:
+
+- La baja de ingredientes es logica usando `ingredients.is_active = 0`.
+- La baja de recetas es logica moviendo la receta al estatus `archived`.
+- Despues de cada operacion de escritura se refresca la cache en memoria del backend para mantener sincronizadas las vistas que leen `ALL_RECIPES_DB` e `INGREDIENT_CATALOG`.
+
+## Flujo recomendado de administracion de esquema
+
+Para una base nueva:
+
+1. `python -m flask --app app migrate up`
+2. `python -m flask --app app seed run`
+
+Para una base ya existente creada antes de esta migracion:
+
+1. Respaldar la base.
+2. Ejecutar `python -m flask --app app migrate mark-all`
+3. A partir de ese momento agregar nuevos scripts SQL en `backend/database/Migrations/` y ejecutarlos con:
+   `python -m flask --app app migrate up`

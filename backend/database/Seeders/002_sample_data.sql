@@ -1,4 +1,3 @@
-USE recetario_app;
 
 INSERT IGNORE INTO ingredients (
     ingredient_category_id,
@@ -255,98 +254,98 @@ SELECT
     src.is_optional
 FROM (
     SELECT 'huevos-revueltos-con-espinaca' AS recipe_slug, 'huevo' AS ingredient_slug, 'piece' AS unit_code, 3.00 AS quantity, '' AS preparation_note, 0 AS is_optional
-    UNION ALL SELECT 'huevos-revueltos-con-espinaca', 'espinaca', 'cup', 1.00, ''
-    UNION ALL SELECT 'huevos-revueltos-con-espinaca', 'cebolla', 'piece', 0.25, ''
-    UNION ALL SELECT 'huevos-revueltos-con-espinaca', 'queso-manchego', 'gram', 40.00, ''
-    UNION ALL SELECT 'avena-con-platano-y-canela', 'avena', 'cup', 1.00, ''
-    UNION ALL SELECT 'avena-con-platano-y-canela', 'leche', 'milliliter', 250.00, ''
-    UNION ALL SELECT 'avena-con-platano-y-canela', 'platano', 'piece', 1.00, ''
-    UNION ALL SELECT 'avena-con-platano-y-canela', 'canela', 'teaspoon', 1.00, ''
-    UNION ALL SELECT 'avena-con-platano-y-canela', 'miel', 'tablespoon', 1.00, ''
-    UNION ALL SELECT 'quesadillas-de-champinon', 'tortilla-maiz', 'piece', 4.00, ''
-    UNION ALL SELECT 'quesadillas-de-champinon', 'champinon', 'gram', 150.00, ''
-    UNION ALL SELECT 'quesadillas-de-champinon', 'queso-manchego', 'gram', 100.00, ''
-    UNION ALL SELECT 'quesadillas-de-champinon', 'cebolla', 'piece', 0.25, ''
-    UNION ALL SELECT 'chilaquiles-verdes-ligeros', 'tortilla-maiz', 'piece', 6.00, ''
-    UNION ALL SELECT 'chilaquiles-verdes-ligeros', 'salsa-verde', 'cup', 0.75, ''
-    UNION ALL SELECT 'chilaquiles-verdes-ligeros', 'crema', 'tablespoon', 2.00, ''
-    UNION ALL SELECT 'chilaquiles-verdes-ligeros', 'queso-manchego', 'gram', 60.00, ''
-    UNION ALL SELECT 'chilaquiles-verdes-ligeros', 'cebolla', 'piece', 0.25, ''
-    UNION ALL SELECT 'omelette-de-jamon-y-queso', 'huevo', 'piece', 3.00, ''
-    UNION ALL SELECT 'omelette-de-jamon-y-queso', 'jamon', 'gram', 80.00, ''
-    UNION ALL SELECT 'omelette-de-jamon-y-queso', 'queso-manchego', 'gram', 50.00, ''
-    UNION ALL SELECT 'omelette-de-jamon-y-queso', 'cebolla', 'piece', 0.25, ''
-    UNION ALL SELECT 'hotcakes-de-avena', 'avena', 'cup', 1.00, ''
-    UNION ALL SELECT 'hotcakes-de-avena', 'huevo', 'piece', 2.00, ''
-    UNION ALL SELECT 'hotcakes-de-avena', 'platano', 'piece', 1.00, ''
-    UNION ALL SELECT 'hotcakes-de-avena', 'polvo-hornear', 'teaspoon', 1.00, ''
-    UNION ALL SELECT 'hotcakes-de-avena', 'canela', 'teaspoon', 0.50, ''
-    UNION ALL SELECT 'yogurt-con-fruta-y-granola', 'yogurt-natural', 'cup', 1.00, ''
-    UNION ALL SELECT 'yogurt-con-fruta-y-granola', 'fresa', 'piece', 6.00, ''
-    UNION ALL SELECT 'yogurt-con-fruta-y-granola', 'mango', 'piece', 1.00, ''
-    UNION ALL SELECT 'yogurt-con-fruta-y-granola', 'granola', 'cup', 0.50, ''
-    UNION ALL SELECT 'molletes-integrales', 'pan-integral', 'piece', 2.00, ''
-    UNION ALL SELECT 'molletes-integrales', 'frijol', 'cup', 0.75, ''
-    UNION ALL SELECT 'molletes-integrales', 'queso-manchego', 'gram', 80.00, ''
-    UNION ALL SELECT 'molletes-integrales', 'tomate', 'piece', 0.50, ''
-    UNION ALL SELECT 'sandwich-de-huevo-y-aguacate', 'pan-integral', 'piece', 2.00, ''
-    UNION ALL SELECT 'sandwich-de-huevo-y-aguacate', 'huevo', 'piece', 2.00, ''
-    UNION ALL SELECT 'sandwich-de-huevo-y-aguacate', 'aguacate', 'piece', 0.50, ''
-    UNION ALL SELECT 'sandwich-de-huevo-y-aguacate', 'tomate', 'piece', 0.50, ''
-    UNION ALL SELECT 'smoothie-bowl-tropical', 'mango', 'piece', 1.00, ''
-    UNION ALL SELECT 'smoothie-bowl-tropical', 'pina', 'cup', 1.00, ''
-    UNION ALL SELECT 'smoothie-bowl-tropical', 'yogurt-natural', 'cup', 1.00, ''
-    UNION ALL SELECT 'smoothie-bowl-tropical', 'granola', 'cup', 0.25, ''
-    UNION ALL SELECT 'pollo-al-limon-con-arroz', 'pollo', 'gram', 300.00, ''
-    UNION ALL SELECT 'pollo-al-limon-con-arroz', 'limon', 'piece', 1.00, ''
-    UNION ALL SELECT 'pollo-al-limon-con-arroz', 'arroz', 'cup', 1.00, ''
-    UNION ALL SELECT 'pollo-al-limon-con-arroz', 'ajo', 'piece', 2.00, ''
-    UNION ALL SELECT 'pollo-al-limon-con-arroz', 'aceite-oliva', 'tablespoon', 1.00, ''
-    UNION ALL SELECT 'carne-con-papas', 'carne-res', 'gram', 300.00, ''
-    UNION ALL SELECT 'carne-con-papas', 'papa', 'piece', 2.00, ''
-    UNION ALL SELECT 'carne-con-papas', 'cebolla', 'piece', 0.50, ''
-    UNION ALL SELECT 'carne-con-papas', 'tomate', 'piece', 1.00, ''
-    UNION ALL SELECT 'carne-con-papas', 'ajo', 'piece', 2.00, ''
-    UNION ALL SELECT 'enchiladas-de-pollo', 'tortilla-maiz', 'piece', 8.00, ''
-    UNION ALL SELECT 'enchiladas-de-pollo', 'pollo', 'gram', 250.00, ''
-    UNION ALL SELECT 'enchiladas-de-pollo', 'salsa-verde', 'cup', 1.00, ''
-    UNION ALL SELECT 'enchiladas-de-pollo', 'crema', 'tablespoon', 2.00, ''
-    UNION ALL SELECT 'enchiladas-de-pollo', 'queso-manchego', 'gram', 80.00, ''
-    UNION ALL SELECT 'sopa-de-lentejas', 'lenteja', 'cup', 1.00, ''
-    UNION ALL SELECT 'sopa-de-lentejas', 'zanahoria', 'piece', 1.00, ''
-    UNION ALL SELECT 'sopa-de-lentejas', 'tomate', 'piece', 1.00, ''
-    UNION ALL SELECT 'sopa-de-lentejas', 'cebolla', 'piece', 0.50, ''
-    UNION ALL SELECT 'sopa-de-lentejas', 'ajo', 'piece', 2.00, ''
-    UNION ALL SELECT 'arroz-frito-con-verduras', 'arroz', 'cup', 1.00, ''
-    UNION ALL SELECT 'arroz-frito-con-verduras', 'huevo', 'piece', 2.00, ''
-    UNION ALL SELECT 'arroz-frito-con-verduras', 'zanahoria', 'piece', 1.00, ''
-    UNION ALL SELECT 'arroz-frito-con-verduras', 'pimiento-rojo', 'piece', 1.00, ''
-    UNION ALL SELECT 'arroz-frito-con-verduras', 'cebolla', 'piece', 0.50, ''
-    UNION ALL SELECT 'pasta-cremosa-con-champinon', 'pasta', 'gram', 250.00, ''
-    UNION ALL SELECT 'pasta-cremosa-con-champinon', 'champinon', 'gram', 150.00, ''
-    UNION ALL SELECT 'pasta-cremosa-con-champinon', 'crema', 'cup', 1.00, ''
-    UNION ALL SELECT 'pasta-cremosa-con-champinon', 'parmesano', 'gram', 50.00, ''
-    UNION ALL SELECT 'pasta-cremosa-con-champinon', 'ajo', 'piece', 2.00, ''
-    UNION ALL SELECT 'albondigas-en-salsa-chipotle', 'carne-res', 'gram', 300.00, ''
-    UNION ALL SELECT 'albondigas-en-salsa-chipotle', 'huevo', 'piece', 1.00, ''
-    UNION ALL SELECT 'albondigas-en-salsa-chipotle', 'chipotle', 'tablespoon', 1.00, ''
-    UNION ALL SELECT 'albondigas-en-salsa-chipotle', 'tomate', 'piece', 2.00, ''
-    UNION ALL SELECT 'albondigas-en-salsa-chipotle', 'avena', 'cup', 0.25, ''
-    UNION ALL SELECT 'filete-de-pescado-al-ajillo', 'pescado-blanco', 'gram', 300.00, ''
-    UNION ALL SELECT 'filete-de-pescado-al-ajillo', 'ajo', 'piece', 3.00, ''
-    UNION ALL SELECT 'filete-de-pescado-al-ajillo', 'limon', 'piece', 1.00, ''
-    UNION ALL SELECT 'filete-de-pescado-al-ajillo', 'aceite-oliva', 'tablespoon', 1.00, ''
-    UNION ALL SELECT 'filete-de-pescado-al-ajillo', 'arroz', 'cup', 1.00, ''
-    UNION ALL SELECT 'fajitas-de-res-con-pimientos', 'carne-res', 'gram', 300.00, ''
-    UNION ALL SELECT 'fajitas-de-res-con-pimientos', 'pimiento-rojo', 'piece', 1.00, ''
-    UNION ALL SELECT 'fajitas-de-res-con-pimientos', 'cebolla', 'piece', 1.00, ''
-    UNION ALL SELECT 'fajitas-de-res-con-pimientos', 'tortilla-harina', 'piece', 4.00, ''
-    UNION ALL SELECT 'fajitas-de-res-con-pimientos', 'limon', 'piece', 1.00, ''
-    UNION ALL SELECT 'ensalada-de-garbanzos', 'garbanzo', 'cup', 1.00, ''
-    UNION ALL SELECT 'ensalada-de-garbanzos', 'pepino', 'piece', 1.00, ''
-    UNION ALL SELECT 'ensalada-de-garbanzos', 'tomate', 'piece', 1.00, ''
-    UNION ALL SELECT 'ensalada-de-garbanzos', 'limon', 'piece', 1.00, ''
-    UNION ALL SELECT 'ensalada-de-garbanzos', 'aceite-oliva', 'tablespoon', 1.00, ''
+    UNION ALL SELECT 'huevos-revueltos-con-espinaca', 'espinaca', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'huevos-revueltos-con-espinaca', 'cebolla', 'piece', 0.25, '', 0
+    UNION ALL SELECT 'huevos-revueltos-con-espinaca', 'queso-manchego', 'gram', 40.00, '', 1
+    UNION ALL SELECT 'avena-con-platano-y-canela', 'avena', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'avena-con-platano-y-canela', 'leche', 'milliliter', 250.00, '', 0
+    UNION ALL SELECT 'avena-con-platano-y-canela', 'platano', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'avena-con-platano-y-canela', 'canela', 'teaspoon', 1.00, '', 0
+    UNION ALL SELECT 'avena-con-platano-y-canela', 'miel', 'tablespoon', 1.00, '', 1
+    UNION ALL SELECT 'quesadillas-de-champinon', 'tortilla-maiz', 'piece', 4.00, '', 0
+    UNION ALL SELECT 'quesadillas-de-champinon', 'champinon', 'gram', 150.00, '', 0
+    UNION ALL SELECT 'quesadillas-de-champinon', 'queso-manchego', 'gram', 100.00, '', 0
+    UNION ALL SELECT 'quesadillas-de-champinon', 'cebolla', 'piece', 0.25, '', 0
+    UNION ALL SELECT 'chilaquiles-verdes-ligeros', 'tortilla-maiz', 'piece', 6.00, '', 0
+    UNION ALL SELECT 'chilaquiles-verdes-ligeros', 'salsa-verde', 'cup', 0.75, '', 0
+    UNION ALL SELECT 'chilaquiles-verdes-ligeros', 'crema', 'tablespoon', 2.00, '', 1
+    UNION ALL SELECT 'chilaquiles-verdes-ligeros', 'queso-manchego', 'gram', 60.00, '', 1
+    UNION ALL SELECT 'chilaquiles-verdes-ligeros', 'cebolla', 'piece', 0.25, '', 1
+    UNION ALL SELECT 'omelette-de-jamon-y-queso', 'huevo', 'piece', 3.00, '', 0
+    UNION ALL SELECT 'omelette-de-jamon-y-queso', 'jamon', 'gram', 80.00, '', 0
+    UNION ALL SELECT 'omelette-de-jamon-y-queso', 'queso-manchego', 'gram', 50.00, '', 0
+    UNION ALL SELECT 'omelette-de-jamon-y-queso', 'cebolla', 'piece', 0.25, '', 1
+    UNION ALL SELECT 'hotcakes-de-avena', 'avena', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'hotcakes-de-avena', 'huevo', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'hotcakes-de-avena', 'platano', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'hotcakes-de-avena', 'polvo-hornear', 'teaspoon', 1.00, '', 0
+    UNION ALL SELECT 'hotcakes-de-avena', 'canela', 'teaspoon', 0.50, '', 1
+    UNION ALL SELECT 'yogurt-con-fruta-y-granola', 'yogurt-natural', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'yogurt-con-fruta-y-granola', 'fresa', 'piece', 6.00, '', 0
+    UNION ALL SELECT 'yogurt-con-fruta-y-granola', 'mango', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'yogurt-con-fruta-y-granola', 'granola', 'cup', 0.50, '', 0
+    UNION ALL SELECT 'molletes-integrales', 'pan-integral', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'molletes-integrales', 'frijol', 'cup', 0.75, '', 0
+    UNION ALL SELECT 'molletes-integrales', 'queso-manchego', 'gram', 80.00, '', 0
+    UNION ALL SELECT 'molletes-integrales', 'tomate', 'piece', 0.50, '', 1
+    UNION ALL SELECT 'sandwich-de-huevo-y-aguacate', 'pan-integral', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'sandwich-de-huevo-y-aguacate', 'huevo', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'sandwich-de-huevo-y-aguacate', 'aguacate', 'piece', 0.50, '', 0
+    UNION ALL SELECT 'sandwich-de-huevo-y-aguacate', 'tomate', 'piece', 0.50, '', 1
+    UNION ALL SELECT 'smoothie-bowl-tropical', 'mango', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'smoothie-bowl-tropical', 'pina', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'smoothie-bowl-tropical', 'yogurt-natural', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'smoothie-bowl-tropical', 'granola', 'cup', 0.25, '', 1
+    UNION ALL SELECT 'pollo-al-limon-con-arroz', 'pollo', 'gram', 300.00, '', 0
+    UNION ALL SELECT 'pollo-al-limon-con-arroz', 'limon', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'pollo-al-limon-con-arroz', 'arroz', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'pollo-al-limon-con-arroz', 'ajo', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'pollo-al-limon-con-arroz', 'aceite-oliva', 'tablespoon', 1.00, '', 0
+    UNION ALL SELECT 'carne-con-papas', 'carne-res', 'gram', 300.00, '', 0
+    UNION ALL SELECT 'carne-con-papas', 'papa', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'carne-con-papas', 'cebolla', 'piece', 0.50, '', 0
+    UNION ALL SELECT 'carne-con-papas', 'tomate', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'carne-con-papas', 'ajo', 'piece', 2.00, '', 1
+    UNION ALL SELECT 'enchiladas-de-pollo', 'tortilla-maiz', 'piece', 8.00, '', 0
+    UNION ALL SELECT 'enchiladas-de-pollo', 'pollo', 'gram', 250.00, '', 0
+    UNION ALL SELECT 'enchiladas-de-pollo', 'salsa-verde', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'enchiladas-de-pollo', 'crema', 'tablespoon', 2.00, '', 1
+    UNION ALL SELECT 'enchiladas-de-pollo', 'queso-manchego', 'gram', 80.00, '', 1
+    UNION ALL SELECT 'sopa-de-lentejas', 'lenteja', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'sopa-de-lentejas', 'zanahoria', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'sopa-de-lentejas', 'tomate', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'sopa-de-lentejas', 'cebolla', 'piece', 0.50, '', 0
+    UNION ALL SELECT 'sopa-de-lentejas', 'ajo', 'piece', 2.00, '', 1
+    UNION ALL SELECT 'arroz-frito-con-verduras', 'arroz', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'arroz-frito-con-verduras', 'huevo', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'arroz-frito-con-verduras', 'zanahoria', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'arroz-frito-con-verduras', 'pimiento-rojo', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'arroz-frito-con-verduras', 'cebolla', 'piece', 0.50, '', 1
+    UNION ALL SELECT 'pasta-cremosa-con-champinon', 'pasta', 'gram', 250.00, '', 0
+    UNION ALL SELECT 'pasta-cremosa-con-champinon', 'champinon', 'gram', 150.00, '', 0
+    UNION ALL SELECT 'pasta-cremosa-con-champinon', 'crema', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'pasta-cremosa-con-champinon', 'parmesano', 'gram', 50.00, '', 0
+    UNION ALL SELECT 'pasta-cremosa-con-champinon', 'ajo', 'piece', 2.00, '', 1
+    UNION ALL SELECT 'albondigas-en-salsa-chipotle', 'carne-res', 'gram', 300.00, '', 0
+    UNION ALL SELECT 'albondigas-en-salsa-chipotle', 'huevo', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'albondigas-en-salsa-chipotle', 'chipotle', 'tablespoon', 1.00, '', 0
+    UNION ALL SELECT 'albondigas-en-salsa-chipotle', 'tomate', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'albondigas-en-salsa-chipotle', 'avena', 'cup', 0.25, '', 0
+    UNION ALL SELECT 'filete-de-pescado-al-ajillo', 'pescado-blanco', 'gram', 300.00, '', 0
+    UNION ALL SELECT 'filete-de-pescado-al-ajillo', 'ajo', 'piece', 3.00, '', 0
+    UNION ALL SELECT 'filete-de-pescado-al-ajillo', 'limon', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'filete-de-pescado-al-ajillo', 'aceite-oliva', 'tablespoon', 1.00, '', 0
+    UNION ALL SELECT 'filete-de-pescado-al-ajillo', 'arroz', 'cup', 1.00, '', 1
+    UNION ALL SELECT 'fajitas-de-res-con-pimientos', 'carne-res', 'gram', 300.00, '', 0
+    UNION ALL SELECT 'fajitas-de-res-con-pimientos', 'pimiento-rojo', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'fajitas-de-res-con-pimientos', 'cebolla', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'fajitas-de-res-con-pimientos', 'tortilla-harina', 'piece', 4.00, '', 0
+    UNION ALL SELECT 'fajitas-de-res-con-pimientos', 'limon', 'piece', 1.00, '', 1
+    UNION ALL SELECT 'ensalada-de-garbanzos', 'garbanzo', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'ensalada-de-garbanzos', 'pepino', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'ensalada-de-garbanzos', 'tomate', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'ensalada-de-garbanzos', 'limon', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'ensalada-de-garbanzos', 'aceite-oliva', 'tablespoon', 1.00, '', 1
 ) AS src
 JOIN recipes AS r
     ON r.slug = src.recipe_slug
@@ -368,91 +367,91 @@ SELECT
     src.is_optional
 FROM (
     SELECT 'crema-de-calabaza' AS recipe_slug, 'calabaza' AS ingredient_slug, 'gram' AS unit_code, 400.00 AS quantity, '' AS preparation_note, 0 AS is_optional
-    UNION ALL SELECT 'crema-de-calabaza', 'leche', 'milliliter', 250.00, ''
-    UNION ALL SELECT 'crema-de-calabaza', 'cebolla', 'piece', 0.50, ''
-    UNION ALL SELECT 'crema-de-calabaza', 'ajo', 'piece', 1.00, ''
-    UNION ALL SELECT 'tostadas-de-pollo', 'tortilla-maiz', 'piece', 4.00, 'tostadas'
-    UNION ALL SELECT 'tostadas-de-pollo', 'pollo', 'gram', 200.00, ''
-    UNION ALL SELECT 'tostadas-de-pollo', 'lechuga', 'cup', 1.00, ''
-    UNION ALL SELECT 'tostadas-de-pollo', 'crema', 'tablespoon', 2.00, ''
-    UNION ALL SELECT 'tostadas-de-pollo', 'tomate', 'piece', 1.00, ''
-    UNION ALL SELECT 'ensalada-cesar-con-pollo', 'pollo', 'gram', 200.00, ''
-    UNION ALL SELECT 'ensalada-cesar-con-pollo', 'lechuga', 'cup', 2.00, ''
-    UNION ALL SELECT 'ensalada-cesar-con-pollo', 'parmesano', 'gram', 40.00, ''
-    UNION ALL SELECT 'ensalada-cesar-con-pollo', 'pan-integral', 'piece', 2.00, 'para crutones'
-    UNION ALL SELECT 'ensalada-cesar-con-pollo', 'aceite-oliva', 'tablespoon', 1.00, ''
-    UNION ALL SELECT 'tacos-de-frijol-y-queso', 'tortilla-maiz', 'piece', 6.00, ''
-    UNION ALL SELECT 'tacos-de-frijol-y-queso', 'frijol', 'cup', 1.00, ''
-    UNION ALL SELECT 'tacos-de-frijol-y-queso', 'queso-manchego', 'gram', 80.00, ''
-    UNION ALL SELECT 'tacos-de-frijol-y-queso', 'salsa-verde', 'cup', 0.50, ''
-    UNION ALL SELECT 'sandwich-caprese', 'pan-integral', 'piece', 2.00, ''
-    UNION ALL SELECT 'sandwich-caprese', 'tomate', 'piece', 1.00, ''
-    UNION ALL SELECT 'sandwich-caprese', 'queso-crema', 'gram', 50.00, ''
-    UNION ALL SELECT 'sandwich-caprese', 'aceite-oliva', 'tablespoon', 1.00, ''
-    UNION ALL SELECT 'wraps-de-atun', 'tortilla-harina', 'piece', 2.00, ''
-    UNION ALL SELECT 'wraps-de-atun', 'atun', 'gram', 150.00, ''
-    UNION ALL SELECT 'wraps-de-atun', 'lechuga', 'cup', 1.00, ''
-    UNION ALL SELECT 'wraps-de-atun', 'tomate', 'piece', 1.00, ''
-    UNION ALL SELECT 'wraps-de-atun', 'queso-crema', 'tablespoon', 2.00, ''
-    UNION ALL SELECT 'arroz-con-verduras-y-huevo', 'arroz', 'cup', 1.00, ''
-    UNION ALL SELECT 'arroz-con-verduras-y-huevo', 'huevo', 'piece', 2.00, ''
-    UNION ALL SELECT 'arroz-con-verduras-y-huevo', 'zanahoria', 'piece', 1.00, ''
-    UNION ALL SELECT 'arroz-con-verduras-y-huevo', 'pimiento-rojo', 'piece', 1.00, ''
-    UNION ALL SELECT 'sopa-de-tomate', 'tomate', 'piece', 4.00, ''
-    UNION ALL SELECT 'sopa-de-tomate', 'ajo', 'piece', 2.00, ''
-    UNION ALL SELECT 'sopa-de-tomate', 'cebolla', 'piece', 0.50, ''
-    UNION ALL SELECT 'sopa-de-tomate', 'crema', 'cup', 0.25, ''
-    UNION ALL SELECT 'quesadillas-de-flor-de-calabaza', 'tortilla-maiz', 'piece', 4.00, ''
-    UNION ALL SELECT 'quesadillas-de-flor-de-calabaza', 'flor-calabaza', 'gram', 120.00, ''
-    UNION ALL SELECT 'quesadillas-de-flor-de-calabaza', 'queso-manchego', 'gram', 80.00, ''
-    UNION ALL SELECT 'quesadillas-de-flor-de-calabaza', 'cebolla', 'piece', 0.25, ''
-    UNION ALL SELECT 'ensalada-de-quinoa', 'quinoa', 'cup', 1.00, ''
-    UNION ALL SELECT 'ensalada-de-quinoa', 'pepino', 'piece', 1.00, ''
-    UNION ALL SELECT 'ensalada-de-quinoa', 'tomate', 'piece', 1.00, ''
-    UNION ALL SELECT 'ensalada-de-quinoa', 'aguacate', 'piece', 0.50, ''
-    UNION ALL SELECT 'ensalada-de-quinoa', 'limon', 'piece', 1.00, ''
-    UNION ALL SELECT 'arroz-con-leche', 'arroz', 'cup', 0.75, ''
-    UNION ALL SELECT 'arroz-con-leche', 'leche', 'milliliter', 500.00, ''
-    UNION ALL SELECT 'arroz-con-leche', 'canela', 'teaspoon', 1.00, ''
-    UNION ALL SELECT 'arroz-con-leche', 'azucar', 'tablespoon', 4.00, ''
-    UNION ALL SELECT 'gelatina-de-fresa', 'fresa', 'piece', 12.00, ''
-    UNION ALL SELECT 'gelatina-de-fresa', 'azucar', 'tablespoon', 3.00, ''
-    UNION ALL SELECT 'gelatina-de-fresa', 'grenetina', 'tablespoon', 1.00, ''
-    UNION ALL SELECT 'gelatina-de-fresa', 'limon', 'piece', 1.00, ''
-    UNION ALL SELECT 'manzanas-con-canela-al-horno', 'manzana', 'piece', 2.00, ''
-    UNION ALL SELECT 'manzanas-con-canela-al-horno', 'canela', 'teaspoon', 1.00, ''
-    UNION ALL SELECT 'manzanas-con-canela-al-horno', 'miel', 'tablespoon', 2.00, ''
-    UNION ALL SELECT 'manzanas-con-canela-al-horno', 'mantequilla', 'tablespoon', 1.00, ''
-    UNION ALL SELECT 'mousse-de-chocolate', 'chocolate', 'gram', 150.00, ''
-    UNION ALL SELECT 'mousse-de-chocolate', 'crema', 'cup', 1.00, ''
-    UNION ALL SELECT 'mousse-de-chocolate', 'azucar', 'tablespoon', 2.00, ''
-    UNION ALL SELECT 'mousse-de-chocolate', 'vainilla', 'teaspoon', 1.00, ''
-    UNION ALL SELECT 'pay-de-limon-en-vaso', 'galleta-maria', 'piece', 10.00, ''
-    UNION ALL SELECT 'pay-de-limon-en-vaso', 'yogurt-natural', 'cup', 1.00, ''
-    UNION ALL SELECT 'pay-de-limon-en-vaso', 'limon', 'piece', 2.00, ''
-    UNION ALL SELECT 'pay-de-limon-en-vaso', 'azucar', 'tablespoon', 2.00, ''
-    UNION ALL SELECT 'platanos-con-miel-y-nuez', 'platano', 'piece', 2.00, ''
-    UNION ALL SELECT 'platanos-con-miel-y-nuez', 'miel', 'tablespoon', 2.00, ''
-    UNION ALL SELECT 'platanos-con-miel-y-nuez', 'frutos-secos', 'cup', 0.25, ''
-    UNION ALL SELECT 'platanos-con-miel-y-nuez', 'canela', 'teaspoon', 0.50, ''
-    UNION ALL SELECT 'avena-horneada-con-manzana', 'avena', 'cup', 1.00, ''
-    UNION ALL SELECT 'avena-horneada-con-manzana', 'manzana', 'piece', 1.00, ''
-    UNION ALL SELECT 'avena-horneada-con-manzana', 'canela', 'teaspoon', 1.00, ''
-    UNION ALL SELECT 'avena-horneada-con-manzana', 'leche', 'milliliter', 250.00, ''
-    UNION ALL SELECT 'avena-horneada-con-manzana', 'miel', 'tablespoon', 1.00, ''
-    UNION ALL SELECT 'yogurt-con-mango', 'yogurt-natural', 'cup', 1.00, ''
-    UNION ALL SELECT 'yogurt-con-mango', 'mango', 'piece', 1.00, ''
-    UNION ALL SELECT 'yogurt-con-mango', 'miel', 'tablespoon', 1.00, ''
-    UNION ALL SELECT 'yogurt-con-mango', 'granola', 'cup', 0.25, ''
-    UNION ALL SELECT 'fresas-con-crema', 'fresa', 'piece', 15.00, ''
-    UNION ALL SELECT 'fresas-con-crema', 'crema', 'cup', 0.75, ''
-    UNION ALL SELECT 'fresas-con-crema', 'azucar', 'tablespoon', 2.00, ''
-    UNION ALL SELECT 'fresas-con-crema', 'vainilla', 'teaspoon', 0.50, ''
-    UNION ALL SELECT 'brownies-caseros', 'harina-trigo', 'cup', 1.00, ''
-    UNION ALL SELECT 'brownies-caseros', 'chocolate', 'gram', 150.00, ''
-    UNION ALL SELECT 'brownies-caseros', 'mantequilla', 'gram', 100.00, ''
-    UNION ALL SELECT 'brownies-caseros', 'azucar', 'cup', 0.50, ''
-    UNION ALL SELECT 'brownies-caseros', 'huevo', 'piece', 2.00, ''
+    UNION ALL SELECT 'crema-de-calabaza', 'leche', 'milliliter', 250.00, '', 0
+    UNION ALL SELECT 'crema-de-calabaza', 'cebolla', 'piece', 0.50, '', 0
+    UNION ALL SELECT 'crema-de-calabaza', 'ajo', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'tostadas-de-pollo', 'tortilla-maiz', 'piece', 4.00, 'tostadas', 0
+    UNION ALL SELECT 'tostadas-de-pollo', 'pollo', 'gram', 200.00, '', 0
+    UNION ALL SELECT 'tostadas-de-pollo', 'lechuga', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'tostadas-de-pollo', 'crema', 'tablespoon', 2.00, '', 1
+    UNION ALL SELECT 'tostadas-de-pollo', 'tomate', 'piece', 1.00, '', 1
+    UNION ALL SELECT 'ensalada-cesar-con-pollo', 'pollo', 'gram', 200.00, '', 0
+    UNION ALL SELECT 'ensalada-cesar-con-pollo', 'lechuga', 'cup', 2.00, '', 0
+    UNION ALL SELECT 'ensalada-cesar-con-pollo', 'parmesano', 'gram', 40.00, '', 0
+    UNION ALL SELECT 'ensalada-cesar-con-pollo', 'pan-integral', 'piece', 2.00, 'para crutones', 0
+    UNION ALL SELECT 'ensalada-cesar-con-pollo', 'aceite-oliva', 'tablespoon', 1.00, '', 1
+    UNION ALL SELECT 'tacos-de-frijol-y-queso', 'tortilla-maiz', 'piece', 6.00, '', 0
+    UNION ALL SELECT 'tacos-de-frijol-y-queso', 'frijol', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'tacos-de-frijol-y-queso', 'queso-manchego', 'gram', 80.00, '', 0
+    UNION ALL SELECT 'tacos-de-frijol-y-queso', 'salsa-verde', 'cup', 0.50, '', 1
+    UNION ALL SELECT 'sandwich-caprese', 'pan-integral', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'sandwich-caprese', 'tomate', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'sandwich-caprese', 'queso-crema', 'gram', 50.00, '', 0
+    UNION ALL SELECT 'sandwich-caprese', 'aceite-oliva', 'tablespoon', 1.00, '', 1
+    UNION ALL SELECT 'wraps-de-atun', 'tortilla-harina', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'wraps-de-atun', 'atun', 'gram', 150.00, '', 0
+    UNION ALL SELECT 'wraps-de-atun', 'lechuga', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'wraps-de-atun', 'tomate', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'wraps-de-atun', 'queso-crema', 'tablespoon', 2.00, '', 1
+    UNION ALL SELECT 'arroz-con-verduras-y-huevo', 'arroz', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'arroz-con-verduras-y-huevo', 'huevo', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'arroz-con-verduras-y-huevo', 'zanahoria', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'arroz-con-verduras-y-huevo', 'pimiento-rojo', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'sopa-de-tomate', 'tomate', 'piece', 4.00, '', 0
+    UNION ALL SELECT 'sopa-de-tomate', 'ajo', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'sopa-de-tomate', 'cebolla', 'piece', 0.50, '', 0
+    UNION ALL SELECT 'sopa-de-tomate', 'crema', 'cup', 0.25, '', 1
+    UNION ALL SELECT 'quesadillas-de-flor-de-calabaza', 'tortilla-maiz', 'piece', 4.00, '', 0
+    UNION ALL SELECT 'quesadillas-de-flor-de-calabaza', 'flor-calabaza', 'gram', 120.00, '', 0
+    UNION ALL SELECT 'quesadillas-de-flor-de-calabaza', 'queso-manchego', 'gram', 80.00, '', 0
+    UNION ALL SELECT 'quesadillas-de-flor-de-calabaza', 'cebolla', 'piece', 0.25, '', 1
+    UNION ALL SELECT 'ensalada-de-quinoa', 'quinoa', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'ensalada-de-quinoa', 'pepino', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'ensalada-de-quinoa', 'tomate', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'ensalada-de-quinoa', 'aguacate', 'piece', 0.50, '', 0
+    UNION ALL SELECT 'ensalada-de-quinoa', 'limon', 'piece', 1.00, '', 1
+    UNION ALL SELECT 'arroz-con-leche', 'arroz', 'cup', 0.75, '', 0
+    UNION ALL SELECT 'arroz-con-leche', 'leche', 'milliliter', 500.00, '', 0
+    UNION ALL SELECT 'arroz-con-leche', 'canela', 'teaspoon', 1.00, '', 0
+    UNION ALL SELECT 'arroz-con-leche', 'azucar', 'tablespoon', 4.00, '', 0
+    UNION ALL SELECT 'gelatina-de-fresa', 'fresa', 'piece', 12.00, '', 0
+    UNION ALL SELECT 'gelatina-de-fresa', 'azucar', 'tablespoon', 3.00, '', 0
+    UNION ALL SELECT 'gelatina-de-fresa', 'grenetina', 'tablespoon', 1.00, '', 0
+    UNION ALL SELECT 'gelatina-de-fresa', 'limon', 'piece', 1.00, '', 1
+    UNION ALL SELECT 'manzanas-con-canela-al-horno', 'manzana', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'manzanas-con-canela-al-horno', 'canela', 'teaspoon', 1.00, '', 0
+    UNION ALL SELECT 'manzanas-con-canela-al-horno', 'miel', 'tablespoon', 2.00, '', 0
+    UNION ALL SELECT 'manzanas-con-canela-al-horno', 'mantequilla', 'tablespoon', 1.00, '', 1
+    UNION ALL SELECT 'mousse-de-chocolate', 'chocolate', 'gram', 150.00, '', 0
+    UNION ALL SELECT 'mousse-de-chocolate', 'crema', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'mousse-de-chocolate', 'azucar', 'tablespoon', 2.00, '', 0
+    UNION ALL SELECT 'mousse-de-chocolate', 'vainilla', 'teaspoon', 1.00, '', 1
+    UNION ALL SELECT 'pay-de-limon-en-vaso', 'galleta-maria', 'piece', 10.00, '', 0
+    UNION ALL SELECT 'pay-de-limon-en-vaso', 'yogurt-natural', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'pay-de-limon-en-vaso', 'limon', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'pay-de-limon-en-vaso', 'azucar', 'tablespoon', 2.00, '', 1
+    UNION ALL SELECT 'platanos-con-miel-y-nuez', 'platano', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'platanos-con-miel-y-nuez', 'miel', 'tablespoon', 2.00, '', 0
+    UNION ALL SELECT 'platanos-con-miel-y-nuez', 'frutos-secos', 'cup', 0.25, '', 1
+    UNION ALL SELECT 'platanos-con-miel-y-nuez', 'canela', 'teaspoon', 0.50, '', 1
+    UNION ALL SELECT 'avena-horneada-con-manzana', 'avena', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'avena-horneada-con-manzana', 'manzana', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'avena-horneada-con-manzana', 'canela', 'teaspoon', 1.00, '', 0
+    UNION ALL SELECT 'avena-horneada-con-manzana', 'leche', 'milliliter', 250.00, '', 0
+    UNION ALL SELECT 'avena-horneada-con-manzana', 'miel', 'tablespoon', 1.00, '', 1
+    UNION ALL SELECT 'yogurt-con-mango', 'yogurt-natural', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'yogurt-con-mango', 'mango', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'yogurt-con-mango', 'miel', 'tablespoon', 1.00, '', 1
+    UNION ALL SELECT 'yogurt-con-mango', 'granola', 'cup', 0.25, '', 1
+    UNION ALL SELECT 'fresas-con-crema', 'fresa', 'piece', 15.00, '', 0
+    UNION ALL SELECT 'fresas-con-crema', 'crema', 'cup', 0.75, '', 0
+    UNION ALL SELECT 'fresas-con-crema', 'azucar', 'tablespoon', 2.00, '', 1
+    UNION ALL SELECT 'fresas-con-crema', 'vainilla', 'teaspoon', 0.50, '', 1
+    UNION ALL SELECT 'brownies-caseros', 'harina-trigo', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'brownies-caseros', 'chocolate', 'gram', 150.00, '', 0
+    UNION ALL SELECT 'brownies-caseros', 'mantequilla', 'gram', 100.00, '', 0
+    UNION ALL SELECT 'brownies-caseros', 'azucar', 'cup', 0.50, '', 0
+    UNION ALL SELECT 'brownies-caseros', 'huevo', 'piece', 2.00, '', 0
 ) AS src
 JOIN recipes AS r
     ON r.slug = src.recipe_slug
@@ -474,75 +473,75 @@ SELECT
     src.is_optional
 FROM (
     SELECT 'agua-de-limon' AS recipe_slug, 'limon' AS ingredient_slug, 'piece' AS unit_code, 4.00 AS quantity, '' AS preparation_note, 0 AS is_optional
-    UNION ALL SELECT 'agua-de-limon', 'azucar', 'tablespoon', 4.00, ''
-    UNION ALL SELECT 'licuado-de-platano', 'platano', 'piece', 2.00, ''
-    UNION ALL SELECT 'licuado-de-platano', 'leche', 'milliliter', 300.00, ''
-    UNION ALL SELECT 'licuado-de-platano', 'canela', 'teaspoon', 0.50, ''
-    UNION ALL SELECT 'smoothie-verde', 'espinaca', 'cup', 1.00, ''
-    UNION ALL SELECT 'smoothie-verde', 'mango', 'piece', 1.00, ''
-    UNION ALL SELECT 'smoothie-verde', 'pina', 'cup', 1.00, ''
-    UNION ALL SELECT 'smoothie-verde', 'limon', 'piece', 1.00, ''
-    UNION ALL SELECT 'cafe-frappe-casero', 'cafe-soluble', 'teaspoon', 2.00, ''
-    UNION ALL SELECT 'cafe-frappe-casero', 'leche', 'milliliter', 250.00, ''
-    UNION ALL SELECT 'cafe-frappe-casero', 'azucar', 'tablespoon', 2.00, ''
-    UNION ALL SELECT 'cafe-frappe-casero', 'vainilla', 'teaspoon', 0.50, ''
-    UNION ALL SELECT 'chocolate-caliente', 'chocolate', 'gram', 100.00, ''
-    UNION ALL SELECT 'chocolate-caliente', 'leche', 'milliliter', 300.00, ''
-    UNION ALL SELECT 'chocolate-caliente', 'canela', 'teaspoon', 0.50, ''
-    UNION ALL SELECT 'chocolate-caliente', 'azucar', 'tablespoon', 1.00, ''
-    UNION ALL SELECT 'agua-de-jamaica', 'jamaica', 'cup', 0.50, ''
-    UNION ALL SELECT 'agua-de-jamaica', 'azucar', 'tablespoon', 4.00, ''
-    UNION ALL SELECT 'agua-de-jamaica', 'limon', 'piece', 1.00, ''
-    UNION ALL SELECT 'naranjada-natural', 'naranja', 'piece', 3.00, ''
-    UNION ALL SELECT 'naranjada-natural', 'limon', 'piece', 1.00, ''
-    UNION ALL SELECT 'naranjada-natural', 'azucar', 'tablespoon', 2.00, ''
-    UNION ALL SELECT 'te-helado-de-durazno', 'durazno', 'piece', 2.00, ''
-    UNION ALL SELECT 'te-helado-de-durazno', 'azucar', 'tablespoon', 2.00, ''
-    UNION ALL SELECT 'te-helado-de-durazno', 'limon', 'piece', 1.00, ''
-    UNION ALL SELECT 'licuado-de-fresa-y-avena', 'fresa', 'piece', 8.00, ''
-    UNION ALL SELECT 'licuado-de-fresa-y-avena', 'avena', 'cup', 0.25, ''
-    UNION ALL SELECT 'licuado-de-fresa-y-avena', 'leche', 'milliliter', 300.00, ''
-    UNION ALL SELECT 'licuado-de-fresa-y-avena', 'miel', 'tablespoon', 1.00, ''
-    UNION ALL SELECT 'malteada-de-vainilla', 'leche', 'milliliter', 300.00, ''
-    UNION ALL SELECT 'malteada-de-vainilla', 'vainilla', 'teaspoon', 1.00, ''
-    UNION ALL SELECT 'malteada-de-vainilla', 'azucar', 'tablespoon', 2.00, ''
-    UNION ALL SELECT 'malteada-de-vainilla', 'crema', 'tablespoon', 2.00, ''
-    UNION ALL SELECT 'palomitas-con-mantequilla', 'maiz-palomero', 'cup', 0.50, ''
-    UNION ALL SELECT 'palomitas-con-mantequilla', 'mantequilla', 'tablespoon', 2.00, ''
-    UNION ALL SELECT 'palomitas-con-mantequilla', 'sal', 'teaspoon', 0.50, ''
-    UNION ALL SELECT 'hummus-con-bastones', 'garbanzo', 'cup', 1.00, ''
-    UNION ALL SELECT 'hummus-con-bastones', 'ajo', 'piece', 1.00, ''
-    UNION ALL SELECT 'hummus-con-bastones', 'limon', 'piece', 1.00, ''
-    UNION ALL SELECT 'hummus-con-bastones', 'aceite-oliva', 'tablespoon', 1.00, ''
-    UNION ALL SELECT 'hummus-con-bastones', 'pepino', 'piece', 1.00, 'en bastones'
-    UNION ALL SELECT 'nachos-con-queso', 'tortilla-maiz', 'piece', 6.00, ''
-    UNION ALL SELECT 'nachos-con-queso', 'queso-manchego', 'gram', 80.00, ''
-    UNION ALL SELECT 'nachos-con-queso', 'frijol', 'cup', 0.50, ''
-    UNION ALL SELECT 'nachos-con-queso', 'chile-polvo', 'teaspoon', 0.50, ''
-    UNION ALL SELECT 'pepinos-con-limon-y-chile', 'pepino', 'piece', 2.00, ''
-    UNION ALL SELECT 'pepinos-con-limon-y-chile', 'limon', 'piece', 1.00, ''
-    UNION ALL SELECT 'pepinos-con-limon-y-chile', 'chile-polvo', 'teaspoon', 1.00, ''
-    UNION ALL SELECT 'tostadas-de-aguacate', 'pan-integral', 'piece', 2.00, ''
-    UNION ALL SELECT 'tostadas-de-aguacate', 'aguacate', 'piece', 1.00, ''
-    UNION ALL SELECT 'tostadas-de-aguacate', 'limon', 'piece', 0.50, ''
-    UNION ALL SELECT 'tostadas-de-aguacate', 'chile-polvo', 'teaspoon', 0.50, ''
-    UNION ALL SELECT 'mix-de-frutos-secos', 'frutos-secos', 'cup', 1.00, ''
-    UNION ALL SELECT 'mix-de-frutos-secos', 'miel', 'tablespoon', 1.00, ''
-    UNION ALL SELECT 'mix-de-frutos-secos', 'canela', 'teaspoon', 0.25, ''
-    UNION ALL SELECT 'crostinis-de-jitomate', 'pan-integral', 'piece', 4.00, ''
-    UNION ALL SELECT 'crostinis-de-jitomate', 'tomate', 'piece', 2.00, ''
-    UNION ALL SELECT 'crostinis-de-jitomate', 'aceite-oliva', 'tablespoon', 1.00, ''
-    UNION ALL SELECT 'crostinis-de-jitomate', 'ajo', 'piece', 1.00, ''
-    UNION ALL SELECT 'rollitos-de-jamon-y-queso', 'jamon', 'gram', 120.00, ''
-    UNION ALL SELECT 'rollitos-de-jamon-y-queso', 'queso-manchego', 'gram', 80.00, ''
-    UNION ALL SELECT 'rollitos-de-jamon-y-queso', 'queso-crema', 'tablespoon', 2.00, ''
-    UNION ALL SELECT 'chips-de-camote', 'camote', 'piece', 2.00, ''
-    UNION ALL SELECT 'chips-de-camote', 'aceite-oliva', 'tablespoon', 1.00, ''
-    UNION ALL SELECT 'chips-de-camote', 'sal', 'teaspoon', 0.50, ''
-    UNION ALL SELECT 'brochetas-de-fruta', 'fresa', 'piece', 8.00, ''
-    UNION ALL SELECT 'brochetas-de-fruta', 'mango', 'piece', 1.00, ''
-    UNION ALL SELECT 'brochetas-de-fruta', 'pina', 'cup', 1.00, ''
-    UNION ALL SELECT 'brochetas-de-fruta', 'miel', 'tablespoon', 1.00, ''
+    UNION ALL SELECT 'agua-de-limon', 'azucar', 'tablespoon', 4.00, '', 1
+    UNION ALL SELECT 'licuado-de-platano', 'platano', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'licuado-de-platano', 'leche', 'milliliter', 300.00, '', 0
+    UNION ALL SELECT 'licuado-de-platano', 'canela', 'teaspoon', 0.50, '', 1
+    UNION ALL SELECT 'smoothie-verde', 'espinaca', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'smoothie-verde', 'mango', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'smoothie-verde', 'pina', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'smoothie-verde', 'limon', 'piece', 1.00, '', 1
+    UNION ALL SELECT 'cafe-frappe-casero', 'cafe-soluble', 'teaspoon', 2.00, '', 0
+    UNION ALL SELECT 'cafe-frappe-casero', 'leche', 'milliliter', 250.00, '', 0
+    UNION ALL SELECT 'cafe-frappe-casero', 'azucar', 'tablespoon', 2.00, '', 1
+    UNION ALL SELECT 'cafe-frappe-casero', 'vainilla', 'teaspoon', 0.50, '', 1
+    UNION ALL SELECT 'chocolate-caliente', 'chocolate', 'gram', 100.00, '', 0
+    UNION ALL SELECT 'chocolate-caliente', 'leche', 'milliliter', 300.00, '', 0
+    UNION ALL SELECT 'chocolate-caliente', 'canela', 'teaspoon', 0.50, '', 1
+    UNION ALL SELECT 'chocolate-caliente', 'azucar', 'tablespoon', 1.00, '', 1
+    UNION ALL SELECT 'agua-de-jamaica', 'jamaica', 'cup', 0.50, '', 0
+    UNION ALL SELECT 'agua-de-jamaica', 'azucar', 'tablespoon', 4.00, '', 1
+    UNION ALL SELECT 'agua-de-jamaica', 'limon', 'piece', 1.00, '', 1
+    UNION ALL SELECT 'naranjada-natural', 'naranja', 'piece', 3.00, '', 0
+    UNION ALL SELECT 'naranjada-natural', 'limon', 'piece', 1.00, '', 1
+    UNION ALL SELECT 'naranjada-natural', 'azucar', 'tablespoon', 2.00, '', 1
+    UNION ALL SELECT 'te-helado-de-durazno', 'durazno', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'te-helado-de-durazno', 'azucar', 'tablespoon', 2.00, '', 1
+    UNION ALL SELECT 'te-helado-de-durazno', 'limon', 'piece', 1.00, '', 1
+    UNION ALL SELECT 'licuado-de-fresa-y-avena', 'fresa', 'piece', 8.00, '', 0
+    UNION ALL SELECT 'licuado-de-fresa-y-avena', 'avena', 'cup', 0.25, '', 0
+    UNION ALL SELECT 'licuado-de-fresa-y-avena', 'leche', 'milliliter', 300.00, '', 0
+    UNION ALL SELECT 'licuado-de-fresa-y-avena', 'miel', 'tablespoon', 1.00, '', 1
+    UNION ALL SELECT 'malteada-de-vainilla', 'leche', 'milliliter', 300.00, '', 0
+    UNION ALL SELECT 'malteada-de-vainilla', 'vainilla', 'teaspoon', 1.00, '', 0
+    UNION ALL SELECT 'malteada-de-vainilla', 'azucar', 'tablespoon', 2.00, '', 1
+    UNION ALL SELECT 'malteada-de-vainilla', 'crema', 'tablespoon', 2.00, '', 1
+    UNION ALL SELECT 'palomitas-con-mantequilla', 'maiz-palomero', 'cup', 0.50, '', 0
+    UNION ALL SELECT 'palomitas-con-mantequilla', 'mantequilla', 'tablespoon', 2.00, '', 0
+    UNION ALL SELECT 'palomitas-con-mantequilla', 'sal', 'teaspoon', 0.50, '', 1
+    UNION ALL SELECT 'hummus-con-bastones', 'garbanzo', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'hummus-con-bastones', 'ajo', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'hummus-con-bastones', 'limon', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'hummus-con-bastones', 'aceite-oliva', 'tablespoon', 1.00, '', 0
+    UNION ALL SELECT 'hummus-con-bastones', 'pepino', 'piece', 1.00, 'en bastones', 1
+    UNION ALL SELECT 'nachos-con-queso', 'tortilla-maiz', 'piece', 6.00, '', 0
+    UNION ALL SELECT 'nachos-con-queso', 'queso-manchego', 'gram', 80.00, '', 0
+    UNION ALL SELECT 'nachos-con-queso', 'frijol', 'cup', 0.50, '', 1
+    UNION ALL SELECT 'nachos-con-queso', 'chile-polvo', 'teaspoon', 0.50, '', 1
+    UNION ALL SELECT 'pepinos-con-limon-y-chile', 'pepino', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'pepinos-con-limon-y-chile', 'limon', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'pepinos-con-limon-y-chile', 'chile-polvo', 'teaspoon', 1.00, '', 1
+    UNION ALL SELECT 'tostadas-de-aguacate', 'pan-integral', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'tostadas-de-aguacate', 'aguacate', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'tostadas-de-aguacate', 'limon', 'piece', 0.50, '', 1
+    UNION ALL SELECT 'tostadas-de-aguacate', 'chile-polvo', 'teaspoon', 0.50, '', 1
+    UNION ALL SELECT 'mix-de-frutos-secos', 'frutos-secos', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'mix-de-frutos-secos', 'miel', 'tablespoon', 1.00, '', 1
+    UNION ALL SELECT 'mix-de-frutos-secos', 'canela', 'teaspoon', 0.25, '', 1
+    UNION ALL SELECT 'crostinis-de-jitomate', 'pan-integral', 'piece', 4.00, '', 0
+    UNION ALL SELECT 'crostinis-de-jitomate', 'tomate', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'crostinis-de-jitomate', 'aceite-oliva', 'tablespoon', 1.00, '', 0
+    UNION ALL SELECT 'crostinis-de-jitomate', 'ajo', 'piece', 1.00, '', 1
+    UNION ALL SELECT 'rollitos-de-jamon-y-queso', 'jamon', 'gram', 120.00, '', 0
+    UNION ALL SELECT 'rollitos-de-jamon-y-queso', 'queso-manchego', 'gram', 80.00, '', 0
+    UNION ALL SELECT 'rollitos-de-jamon-y-queso', 'queso-crema', 'tablespoon', 2.00, '', 1
+    UNION ALL SELECT 'chips-de-camote', 'camote', 'piece', 2.00, '', 0
+    UNION ALL SELECT 'chips-de-camote', 'aceite-oliva', 'tablespoon', 1.00, '', 0
+    UNION ALL SELECT 'chips-de-camote', 'sal', 'teaspoon', 0.50, '', 1
+    UNION ALL SELECT 'brochetas-de-fruta', 'fresa', 'piece', 8.00, '', 0
+    UNION ALL SELECT 'brochetas-de-fruta', 'mango', 'piece', 1.00, '', 0
+    UNION ALL SELECT 'brochetas-de-fruta', 'pina', 'cup', 1.00, '', 0
+    UNION ALL SELECT 'brochetas-de-fruta', 'miel', 'tablespoon', 1.00, '', 1
 ) AS src
 JOIN recipes AS r
     ON r.slug = src.recipe_slug
