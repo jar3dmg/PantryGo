@@ -1,0 +1,1 @@
+# Separar catalog_api en estos dos archivos para tener una separacion entre recetas e ingredientes

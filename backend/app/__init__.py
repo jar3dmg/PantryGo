@@ -3,6 +3,7 @@
 from pathlib import Path
 
 from flask import Flask
+from flask_cors import CORS
 from sqlalchemy.exc import SQLAlchemyError
 
 from .config import get_database_uri
@@ -13,6 +14,7 @@ from .models import __all__ as _models_loaded
 from .repositories.catalog_repository import fetch_ingredient_catalog
 from .repositories.recipe_repository import fetch_recipe_catalog
 from .routes.web import web_bp
+from .routes.util_routes import utils_bp
 from .services.catalog_service import group_ingredients_by_category
 
 
@@ -55,6 +57,9 @@ def create_app() -> Flask:
         static_folder=str(frontend_dir / "static"),
     )
 
+    CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
+
+
     recipes_csv_path = base_dir.parent / "data" / "recipes.csv"
     app.config["RECIPES_CSV_PATH"] = recipes_csv_path
     app.config["SQLALCHEMY_DATABASE_URI"] = get_database_uri()
@@ -69,4 +74,5 @@ def create_app() -> Flask:
 
     app.register_blueprint(web_bp)
     app.register_blueprint(catalog_api_bp)
+    app.register_blueprint(utils_bp)
     return app

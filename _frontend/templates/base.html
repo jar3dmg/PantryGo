@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}PantryGo{% endblock %}</title>
+    <title>PantryGo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -33,7 +33,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    {% block head %}{% endblock %}
 </head>
 <body class="theme-app bg-cream font-body text-ink">
     <div class="app-shell min-h-screen">
@@ -51,8 +50,6 @@
                 <a href="{{ url_for('web.catalog_admin') }}" class="nav-pill rounded-full border border-herb/25 bg-white/85 px-4 py-2 text-sm font-semibold text-ink/90 transition">Catalogos</a>
             </nav>
         </header>
-        {% block content %}{% endblock %}
     </div>
-    {% block scripts %}{% endblock %}
 </body>
 </html>
