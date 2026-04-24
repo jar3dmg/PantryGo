@@ -310,36 +310,3 @@ function clearSelections(state, elements) {
         elements.categorySelect.value = "";
     }
 }
-
-if (addAvailableButton) {
-    addAvailableButton.addEventListener("click", () => {
-        addIngredient("available", getSelectedIngredientName());
-    });
-}
-
-if (addAvailableButton) {
-    addAvailableButton.addEventListener("click", () => {
-        addIngredient("available", getSelectedIngredientName());
- 
-if (addBannedButton) {
-    addBannedButton.addEventListener("click", () => {
-        addIngredient("banned", getSelectedIngredientName());
-    });
-}
-
-if (clearButton) {
-    clearButton.addEventListener("click", clearSelections);
-}
-
-tabButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-        setActiveTab(button.dataset.tabTarget);
-    });
-});
-
-catalogActionButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-        addIngredient(button.dataset.catalogAction, button.dataset.ingredientName);
-        setActiveTab("inventory-panel");
-    });
-});
