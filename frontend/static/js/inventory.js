@@ -175,6 +175,20 @@ function renderIngredientSelect(state, elements) {
     });
 }
 
+function renderTabs(state, elements) {
+    elements.tabButtons.forEach((button) => {
+        const isActive = button.dataset.tabTarget === state.activeTab;
+        button.classList.toggle("is-active", isActive);
+        button.classList.toggle("bg-sand", isActive);
+        button.classList.toggle("bg-white", !isActive);
+        button.setAttribute("aria-selected", isActive ? "true" : "false");
+    });
+
+    elements.tabPanels.forEach((panel) => {
+        panel.classList.toggle("hidden", panel.id !== state.activeTab);
+    });
+}
+
 function saveInventoryState(state) {
     localStorage.setItem("availableIngredients", JSON.stringify(state.selectedAvailable));
     localStorage.setItem("bannedIngredients", JSON.stringify(state.selectedBanned));
@@ -237,23 +251,6 @@ function normalizeText(value) {
     return value.trim();
 }
 
-function saveSelections() {
-    // Guarda las selecciones para restaurarlas al volver a entrar.
-    localStorage.setItem(STORAGE_KEYS.available, JSON.stringify(selectedAvailable));
-    localStorage.setItem(STORAGE_KEYS.banned, JSON.stringify(selectedBanned));
-}
-
-function syncHiddenInputs() {
-    // Prepara los campos ocultos que Flask recibe en el formulario.
-    if (availableInput) {
-        availableInput.value = selectedAvailable.join(", ");
-    }
-
-    if (bannedInput) {
-        bannedInput.value = selectedBanned.join(", ");
-    }
-}
-
 function createChip(name, type, onRemove) {
     const chip = document.createElement("button");
     chip.type = "button";
@@ -265,31 +262,6 @@ function createChip(name, type, onRemove) {
     chip.innerHTML = `<span>${name}</span><span class="text-xs opacity-70">×</span>`;
     chip.addEventListener("click", onRemove);
     return chip;
-}
-
-function renderSelectionList(type) {
-    // Redibuja chips, contadores y estados vacios del bloque indicado.
-    const isAvailable = type === "available";
-    const items = isAvailable ? selectedAvailable : selectedBanned;
-    const listElement = isAvailable ? availableChipList : bannedChipList;
-    const countElement = isAvailable ? availableCount : bannedCount;
-    const emptyElement = isAvailable ? availableEmptyState : bannedEmptyState;
-
-    if (!listElement || !countElement || !emptyElement) {
-        return;
-    }
-
-    listElement.innerHTML = "";
-    items.forEach((item) => listElement.appendChild(createChip(item, type)));
-    countElement.textContent = String(items.length);
-    emptyElement.classList.toggle("hidden", items.length > 0);
-}
-
-function renderSelections() {
-    renderSelectionList("available");
-    renderSelectionList("banned");
-    syncHiddenInputs();
-    saveSelections();
 }
 
 function addIngredient(state, type, ingredientName) {
@@ -321,59 +293,12 @@ function removeIngredient(state, type, ingredientName) {
     }
 }
 
-function populateIngredientSelect(categorySlug) {
-    // Cambia la lista de ingredientes segun la categoria seleccionada.
-    if (!ingredientSelect) {
-        return;
+function getSelectedIngredientName(elements) {
+    if (!elements.ingredientSelect) {
+        return "";
     }
 
-    ingredientSelect.innerHTML = "";
-
-    if (!categorySlug) {
-        const option = document.createElement("option");
-        option.value = "";
-        option.textContent = "Primero elige una categoria";
-        ingredientSelect.appendChild(option);
-        return;
-    }
-
-    const category = ingredientCatalog.find((item) => item.slug === categorySlug);
-    const defaultOption = document.createElement("option");
-    defaultOption.value = "";
-    defaultOption.textContent = "Selecciona un ingrediente";
-    ingredientSelect.appendChild(defaultOption);
-
-    if (!category) {
-        return;
-    }
-
-    category.ingredients.forEach((ingredient) => {
-        const option = document.createElement("option");
-        option.value = ingredient.name;
-        option.textContent = ingredient.name;
-        ingredientSelect.appendChild(option);
-    });
-}
-
-function getSelectedIngredientName() {
-    return ingredientSelect ? normalizeText(ingredientSelect.value) : "";
-}
-
-function setActiveTab(targetId) {
-    // Activa una pestana y oculta visualmente las demas.
-    tabButtons.forEach((button) => {
-        const isActive = button.dataset.tabTarget === targetId;
-        button.classList.toggle("is-active", isActive);
-        button.classList.toggle("bg-sand", isActive);
-        button.classList.toggle("bg-white", !isActive);
-        button.setAttribute("aria-selected", isActive ? "true" : "false");
-    });
-
-    tabPanels.forEach((panel) => {
-        panel.classList.toggle("hidden", panel.id !== targetId);
-    });
-
-    localStorage.setItem(STORAGE_KEYS.activeTab, targetId);
+    return normalizeText(elements.ingredientSelect.value);
 }
 
 function clearSelections(state, elements) {
@@ -386,31 +311,16 @@ function clearSelections(state, elements) {
     }
 }
 
-function loadSelections() {
-    // Recupera estado previo guardado en localStorage.
-    const savedAvailable = localStorage.getItem(STORAGE_KEYS.available);
-    const savedBanned = localStorage.getItem(STORAGE_KEYS.banned);
-    const savedTab = localStorage.getItem(STORAGE_KEYS.activeTab);
-
-    selectedAvailable = savedAvailable ? JSON.parse(savedAvailable) : [];
-    selectedBanned = savedBanned ? JSON.parse(savedBanned) : [];
-    renderSelections();
-    setActiveTab(savedTab || "inventory-panel");
-    populateIngredientSelect(categorySelect ? categorySelect.value : "");
-}
-
-if (categorySelect) {
-    categorySelect.addEventListener("change", (event) => {
-        populateIngredientSelect(event.target.value);
-    });
-}
-
 if (addAvailableButton) {
     addAvailableButton.addEventListener("click", () => {
         addIngredient("available", getSelectedIngredientName());
     });
 }
 
+if (addAvailableButton) {
+    addAvailableButton.addEventListener("click", () => {
+        addIngredient("available", getSelectedIngredientName());
+ 
 if (addBannedButton) {
     addBannedButton.addEventListener("click", () => {
         addIngredient("banned", getSelectedIngredientName());
@@ -433,5 +343,3 @@ catalogActionButtons.forEach((button) => {
         setActiveTab("inventory-panel");
     });
 });
-
-document.addEventListener("DOMContentLoaded", loadSelections);
