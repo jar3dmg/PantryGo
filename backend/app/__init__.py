@@ -14,7 +14,6 @@ from .models import __all__ as _models_loaded
 from .repositories.catalog_repository import fetch_ingredient_catalog
 from .repositories.recipe_repository import fetch_recipe_catalog
 from .routes.web import web_bp
-from .routes.util_routes import utils_bp
 from .services.catalog_service import group_ingredients_by_category
 
 
@@ -46,6 +45,7 @@ def refresh_runtime_catalogs(app: Flask, allow_csv_fallback: bool = True) -> Non
 def create_app() -> Flask:
     """Crea la aplicacion Flask y deja listas sus configuraciones principales."""
     from .routes.catalog_api import catalog_api_bp
+    from .routes.public_api import public_api_bp
 
     base_dir = Path(__file__).resolve().parent
     project_root = base_dir.parent.parent
@@ -73,6 +73,6 @@ def create_app() -> Flask:
         refresh_runtime_catalogs(app)
 
     app.register_blueprint(web_bp)
+    app.register_blueprint(public_api_bp)
     app.register_blueprint(catalog_api_bp)
-    app.register_blueprint(utils_bp)
     return app
